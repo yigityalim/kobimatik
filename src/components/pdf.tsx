@@ -2,7 +2,6 @@
 
 import React from 'react';
 import { Document, Page, Text, View, StyleSheet, PDFDownloadLink, Font } from '@react-pdf/renderer';
-import { ReportData } from '@/app/test/page';
 
 Font.register({
     family: 'GeistMono',
@@ -66,7 +65,13 @@ const styles = StyleSheet.create({
     },
 });
 
-const PDFDocument = ({ data }: { data: Readonly<ReportData> }) => (
+const PDFDocument = ({
+    data,
+}: {
+    data: Readonly<{
+        [key: string]: any;
+    }>;
+}) => (
     <Document>
         <Page size="A4" style={styles.page} wrap>
             <View style={styles.section}>
@@ -82,7 +87,7 @@ const PDFDocument = ({ data }: { data: Readonly<ReportData> }) => (
                 </Text>
 
                 <Text style={styles.subtitle}>2. Başlangıç Maliyetleri</Text>
-                {Object.entries(data.startupCosts).map(([key, value]) => (
+                {Object.entries(data.startupCosts).map(([key, value]: [string, any]) => (
                     <Text key={key} style={styles.text}>
                         {key}: {value}
                     </Text>
@@ -113,7 +118,7 @@ const PDFDocument = ({ data }: { data: Readonly<ReportData> }) => (
                             <Text style={styles.tableCell}>Birim Fiyat</Text>
                         </View>
                     </View>
-                    {data.mainExpenses.map((expense, index) => (
+                    {data.mainExpenses.map((expense: any, index: number) => (
                         <View style={styles.tableRow} key={index}>
                             <View style={styles.tableCol}>
                                 <Text style={styles.tableCell}>{expense.name}</Text>
@@ -147,7 +152,7 @@ const PDFDocument = ({ data }: { data: Readonly<ReportData> }) => (
                             <Text style={styles.tableCell}>Değişen (%)</Text>
                         </View>
                     </View>
-                    {data.operatingExpenses.map((expense, index) => (
+                    {data.operatingExpenses.map((expense: any, index: number) => (
                         <View style={styles.tableRow} key={index}>
                             <View style={styles.tableCol}>
                                 <Text style={styles.tableCell}>{expense.name}</Text>
@@ -184,7 +189,9 @@ const PDFDocument = ({ data }: { data: Readonly<ReportData> }) => (
 
 // Ana PDF Oluşturucu bileşeni
 interface PDFGeneratorProps {
-    data: ReportData;
+    data: {
+        [key: string]: any;
+    };
 }
 
 export function PDFGenerator({ data }: Readonly<PDFGeneratorProps>) {

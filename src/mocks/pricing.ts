@@ -1,4 +1,3 @@
-import { pricingPlans as pricingTable } from '@/lib/db/schema';
 import { storageSize } from '@/lib/utils';
 import { ClipboardMinus, Lightbulb, Scale } from 'lucide-react';
 
@@ -72,17 +71,4 @@ export const pricing = [
             role: 'Girişimci',
         },
     },
-] satisfies (typeof pricingTable.$inferInsert & {
-    icon: React.ComponentType;
-    features: {
-        id: number;
-        name: string;
-        priority: number;
-    }[];
-    description?: string;
-    review: {
-        text: string;
-        author: string;
-        role: string;
-    };
-})[];
+];
