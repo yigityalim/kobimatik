@@ -1,0 +1,136 @@
+@import 'tailwindcss';
+
+@plugin 'tailwindcss-animate';
+
+@variant dark (&:is(.dark *));
+@variant hocus (&:hover, &:focus);
+
+@theme {
+    --blog-content-width: 820px;
+    --font-lora: var(--font-lora);
+
+    --color-background: #f6f4ef;
+    --color-foreground: #121417;
+
+    --color-secondary: #1b1e23;
+
+    --color-cream-50: #f5f4ef;
+    --color-cream-100: #e8e6d9;
+    --color-cream-200: #d9d5bf;
+    --color-cream-300: #cfcaaf;
+    --color-cream-400: #bab38c;
+    --color-cream-500: #aba273;
+    --color-cream-600: #998f5c;
+    --color-cream-700: #80774d;
+    --color-cream-800: #665f3d;
+    --color-cream-900: #4c472e;
+    --color-offgray-50: #f1f2f4;
+    --color-offgray-100: #dddfe4;
+    --color-offgray-200: #c6cad2;
+    --color-offgray-300: #b8bdc7;
+    --color-offgray-400: #98a0ae;
+    --color-offgray-500: #818b9c;
+    --color-offgray-600: #6c7689;
+    --color-offgray-700: #5a6372;
+    --color-offgray-800: #4c5461;
+    --color-offgray-900: #363b45;
+    --color-offgray-950: #22252b;
+    --color-offgray-1000: #0b0c0e;
+    --color-neutral: #f6f4ef;
+    --color-accent-blue: #0751cf;
+    --text-body: 16px;
+    --text-body--line-height: 144%;
+    --text-caption: 14px;
+    --text-caption--line-height: 144%;
+    --aspect-ratio-lottie: 1.78;
+    --aspect-ratio-feature-video: 1664/1080;
+
+    --sh-default: 6px 6px 0 #074dcf0f, -6px -6px 0 #074dcf0f;
+    --sh-alt: 6px 6px 0 #074dcf0f;
+    --nav-bg-color: #f7f7f2f5;
+
+    --animate-hideToast: hideToast .1s ease-in;
+    --animate-slideInToast: slideInToast .15s cubic-bezier(.16, 1, .3, 1);
+    --animate-swipeOutToast: swipeOutToast .1s ease-out;
+    --animate-dialogOverlayShow: dialogOverlayShow .15s cubic-bezier(.16, 1, .3, 1);
+    --animate-dialogContentShow: dialogContentShow .15s cubic-bezier(.16, 1, .3, 1);
+    --animate-marquee: marquee var(--duration) linear infinite;
+    --animate-scaleIn: scaleIn .1s ease;
+    --animate-scaleOut: scaleOut .1s ease;
+    --animate-fadeIn: fadeIn .1s ease;
+    --animate-fadeOut: fadeOut .1s ease;
+    --animate-spin-slow: spin 32s linear infinite
+}
+
+.dark {
+    --color-background: #121417;
+    --color-foreground: #f6f4ef;
+}
+
+.square-gradient-bg {
+    border-style: var(--tw-border-style);
+    border-width: 1px;
+    border-color:
+            color-mix(in oklab, var(--color-blue-200) 80%, transparent);
+    --tw-gradient-position: to bottom in oklab,;
+    background-image: linear-gradient(var(--tw-gradient-stops));
+    --tw-gradient-from: color-mix(in oklab, var(--color-blue-200) 5%, transparent);
+    --tw-gradient-stops: var(--tw-gradient-via-stops, var(--tw-gradient-position) var(--tw-gradient-from) var(--tw-gradient-from-position), var(--tw-gradient-to) var(--tw-gradient-to-position));
+    --tw-gradient-to: color-mix(in oklab, var(--color-blue-50) 10%, transparent);
+}
+
+@keyframes hideToast {
+    0% {
+        opacity: 1
+    }
+    to {
+        opacity: 0
+    }
+}
+
+@keyframes slideInToast {
+    0% {
+        transform: translateX(calc(100% + var(--viewport-padding)))
+    }
+    to {
+        transform: translate(0)
+    }
+}
+
+@keyframes swipeOutToast {
+    0% {
+        transform: translateX(var(--radix-toast-swipe-end-x))
+    }
+    to {
+        transform: translateX(calc(100% + var(--viewport-padding)))
+    }
+}
+
+@keyframes dialogOverlayShow {
+    0% {
+        opacity: 0
+    }
+    to {
+        opacity: 1
+    }
+}
+
+@keyframes dialogContentShow {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -48%) scale(.96)
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1)
+    }
+}
+
+@keyframes marquee {
+    0% {
+        transform: translate(0)
+    }
+    to {
+        transform: translateX(calc(-100% - var(--gap)))
+    }
+}

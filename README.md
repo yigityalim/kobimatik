@@ -1,81 +1,92 @@
-# Turborepo starter
+# Next.js SaaS Starter
 
-This is an official starter Turborepo.
 
-## Using this example
+<details>
+  <summary>Why did I make this?</summary>
 
-Run the following command:
+In 2020, I made a course called "React 2025" which showed how to build a SaaS application with Next.js, Stripe, and other tools.
 
-```sh
-npx create-turbo@latest
+Well, it's almost 2025 and React 19 has brought so many amazing new features I didn't predict! This repo is a demonstration of the latest React and Next.js patterns. These patterns can drastically simplify some common tasks in building your SaaS, like building forms, talking to your database, and more.
+
+For example, React now has built in hooks like `useActionState` to handle inline form errors and pending states. React Server Actions can replace a lot of boilerplate code needed to call an API Route from the client-side. And finally, the React `use` hook combined with Next.js makes it incredibly easy to build a powerful `useUser()` hook.
+
+We're able to fetch the user from our Postgres database in the root layout, but _not_ await the `Promise`. Instead, we forward the `Promise` to a React context provider, where we can "unwrap" it and awaited the streamed in data. This means we can have the best of both worlds: easy code to fetch data from our database (e.g. `getUser()`) and a React hook we can use in Client Components (e.g. `useUser()`).
+
+Fun fact: the majority of the UI for this application was built with [v0](https://v0.dev) 🤯 [More details here](https://x.com/leeerob/status/1835777934361084316) if you want to learn about this repo.
+
+</details>
+
+## Features
+
+- Dashboard pages with CRUD operations on users/teams
+- Basic RBAC with Owner and Member roles
+- Subscription management with Stripe Customer Portal
+- Email/password authentication with JWTs stored to cookies
+- Global middleware to protect logged-in routes
+- Local middleware to protect Server Actions or validate Zod schemas
+- Activity logging system for any user events
+
+## Tech Stack
+
+- **Framework**: [Next.js](https://nextjs.org/)
+- **Database**: [Postgres](https://www.postgresql.org/)
+- **ORM**: [Drizzle](https://orm.drizzle.team/)
+- **UI Library**: [shadcn/ui](https://ui.shadcn.com/)
+
+## Running Locally
+
+Use the included setup script to create your `.env` file:
+
+```bash
+pnpm db:setup
 ```
 
-## What's inside?
+Then, run the database migrations and seed the database with a default user and team:
 
-This Turborepo includes the following packages/apps:
-
-### Apps and Packages
-
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
-
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
-
-### Utilities
-
-This Turborepo has some additional tools already setup for you:
-
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
-
-### Build
-
-To build all apps and packages, run the following command:
-
-```
-cd my-turborepo
-pnpm build
+```bash
+pnpm db:migrate
+pnpm db:seed
 ```
 
-### Develop
+This will create the following user and team:
 
-To develop all apps and packages, run the following command:
+- User: `test@test.com`
+- Password: `admin123`
 
-```
-cd my-turborepo
+You can, of course, create new users as well through `/sign-up`.
+
+Finally, run the Next.js development server:
+
+```bash
 pnpm dev
 ```
 
-### Remote Caching
+Open [http://localhost:3000](http://localhost:3000) in your browser to see the app in action.
 
-Turborepo can use a technique known as [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
+## Going to Production
 
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup), then enter the following commands:
+When you're ready to deploy your SaaS application to production, follow these steps:
 
-```
-cd my-turborepo
-npx turbo login
-```
+### Deploy to Vercel
 
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
+1. Push your code to a GitHub repository.
+2. Connect your repository to Vercel and deploy it.
+3. Follow the Vercel deployment process, which will guide you through setting up your project.
 
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
+### Add environment variables
 
-```
-npx turbo link
-```
+In your Vercel project settings (or during deployment), add all the necessary environment variables. Make sure to update the values for the production environment, including:
 
-## Useful Links
+1. `BASE_URL`: Set this to your production domain.
+2. `STRIPE_SECRET_KEY`: Use your Stripe secret key for the production environment.
+3. `STRIPE_WEBHOOK_SECRET`: Use the webhook secret from the production webhook you created in step 1.
+4. `POSTGRES_URL`: Set this to your production database URL.
+5. `AUTH_SECRET`: Set this to a random string. `openssl rand -base64 32` will generate one.
 
-Learn more about the power of Turborepo:
+## Other Templates
 
-- [Tasks](https://turbo.build/repo/docs/core-concepts/monorepos/running-tasks)
-- [Caching](https://turbo.build/repo/docs/core-concepts/caching)
-- [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching)
-- [Filtering](https://turbo.build/repo/docs/core-concepts/monorepos/filtering)
-- [Configuration Options](https://turbo.build/repo/docs/reference/configuration)
-- [CLI Usage](https://turbo.build/repo/docs/reference/command-line-reference)
+While this template is intentionally minimal and to be used as a learning resource, there are other paid versions in the community which are more full-featured:
+
+- https://achromatic.dev
+- https://shipfa.st
+- https://makerkit.dev
