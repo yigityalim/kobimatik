@@ -28,6 +28,7 @@ const writer = localFont({
 const lora = Lora({
     display: 'swap',
     variable: '--font-lora',
+    subsets: ['latin'],
 });
 
 export const metadata = {
