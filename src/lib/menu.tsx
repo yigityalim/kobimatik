@@ -5,6 +5,7 @@ import {
     Gem,
     GitPullRequestCreate,
     Home,
+    Languages,
     Laptop,
     Lightbulb,
     ListTodo,
@@ -18,10 +19,24 @@ import {
 } from 'lucide-react';
 import React from 'react';
 import { cn } from '@/lib/utils';
+import countries from './countries';
+import type { Locale } from '@/locales/client';
 
-export const menu = [
+export interface MenuItem {
+    readonly name?: keyof Locale['menu'];
+    icon?: React.ComponentType<LucideProps> | ((props: LucideProps) => React.JSX.Element);
+    href?: string;
+    title?: string;
+    drawer?: boolean;
+    seperator?: boolean;
+    published?: boolean;
+    children?: MenuItem[];
+    header?: string;
+}
+
+export const menu: MenuItem[] = [
     {
-        name: 'Anasayfaya Dön',
+        name: 'home',
         icon: ({ ...props }: LucideProps) => <Home className={cn(props.className)} {...props} />,
         href: '/',
     },
@@ -29,20 +44,20 @@ export const menu = [
         seperator: true,
     },
     {
-        name: 'Main nav',
+        name: 'mainNav',
         children: [
             {
-                name: 'Nasıl Çalışır?',
+                name: 'howItWorks',
                 icon: Rocket,
                 href: '/how-it-works',
             },
             {
-                name: 'Çözümler',
+                name: 'solutions',
                 icon: Blocks,
                 href: '/solutions',
             },
             {
-                name: 'Fiyatlandırma',
+                name: 'pricing',
                 icon: ({ ...props }: LucideProps) => (
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -57,7 +72,7 @@ export const menu = [
                 href: '/pricing',
             },
             {
-                name: 'Blog',
+                name: 'blog',
                 icon: Newspaper, //
                 href: '/blog',
             },
@@ -65,7 +80,8 @@ export const menu = [
     },
     { seperator: true },
     {
-        name: 'Daha Fazla Kaynak',
+        name: 'moreResources',
+        title: '',
         icon: Plus,
         drawer: true, // This will open a drawer with the children
         children: [
@@ -73,22 +89,22 @@ export const menu = [
                 header: 'Şirket',
                 children: [
                     {
-                        name: 'Takımımız',
+                        name: 'team',
                         icon: Users,
                         href: '/team',
                     },
                     {
-                        name: 'Değerler',
+                        name: 'values',
                         icon: ListTodo,
                         href: '/values',
                     },
                     {
-                        name: 'Kariyer',
+                        name: 'jobs',
                         icon: Laptop,
                         href: '/jobs',
                     },
                     {
-                        name: 'Marka',
+                        name: 'brand',
                         icon: Home, // use brand logo
                         href: '/brand',
                     },
@@ -99,30 +115,44 @@ export const menu = [
                 header: 'Tablolar',
                 children: [
                     {
-                        name: 'Proje',
+                        published: false,
+                        name: 'create',
+                        icon: Plus,
+                        href: '/report/create',
+                    },
+                    {
+                        name: 'project',
                         icon: GitPullRequestCreate,
-                        href: '/projects',
+                        href: '/report/projects',
                     },
                     {
-                        name: 'Fizibilite Raporu',
+                        name: 'feasibilityReport',
                         icon: Scale,
-                        href: '/code-of-conduct',
+                        href: '/report/feasibility-report',
                     },
                     {
-                        name: 'Finansal Rapor',
+                        name: 'financialReport',
                         icon: ClipboardMinus,
-                        href: '/contributing',
+                        href: '/report/financial-report',
                     },
                     {
-                        name: 'İş fikri',
+                        name: 'businessIdea',
                         icon: Lightbulb,
-                        href: '/community-links',
+                        href: '/report/business-idea',
                     },
                 ],
             },
-            { seperator: true },
         ],
     },
+    { seperator: true },
+    {
+        name: 'language',
+        title: 'countrySelect',
+        icon: Languages,
+        drawer: true,
+        children: countries as unknown as MenuItem[], //FIXME: fix this
+    },
+    { seperator: true },
 ];
 
 export const footerMenu = [
@@ -130,23 +160,23 @@ export const footerMenu = [
         title: 'Sayfa Menüsü',
         children: [
             {
-                name: 'Anasayfa',
+                name: 'home',
                 href: '/',
             },
             {
-                name: 'Nasıl Çalışır?',
+                name: 'howItWorks',
                 href: '/how-it-works',
             },
             {
-                name: 'Çözümler',
+                name: 'solutions',
                 href: '/solutions',
             },
             {
-                name: 'Fiyatlandırma',
+                name: 'pricing',
                 href: '/pricing',
             },
             {
-                name: 'Blog',
+                name: 'blog',
                 href: '/blog',
             },
         ],
@@ -155,19 +185,19 @@ export const footerMenu = [
         title: 'Şirket',
         children: [
             {
-                name: 'Takımımız',
+                name: 'team',
                 href: '/team',
             },
             {
-                name: 'Değerler',
+                name: 'values',
                 href: '/values',
             },
             {
-                name: 'Kariyer',
+                name: 'jobs',
                 href: '/jobs',
             },
             {
-                name: 'Marka',
+                name: 'brand',
                 href: '/brand',
             },
         ],
@@ -176,20 +206,20 @@ export const footerMenu = [
         title: 'Tablolar',
         children: [
             {
-                name: 'Proje',
-                href: '/projects',
+                name: 'project',
+                href: '/report/projects',
             },
             {
-                name: 'Fizibilite Raporu',
-                href: '/fizibility-report',
+                name: 'feasibilityReport',
+                href: '/report/fizibility-report',
             },
             {
-                name: 'Finansal Rapor',
-                href: '/financial-report',
+                name: 'financialReport',
+                href: '/report/financial-report',
             },
             {
-                name: 'İş fikri',
-                href: '/business-idea',
+                name: 'businessIdea',
+                href: '/report/business-idea',
             },
         ],
     },
@@ -208,11 +238,12 @@ export const footerMenu = [
     },
 ];
 
-export type MenuItem = (typeof menu)[number];
-
 export function flattenMenu(menuItems: MenuItem[], parentPath: string = ''): MenuItem[] {
     return menuItems.reduce((acc: any, item) => {
-        const currentPath = parentPath ? `${parentPath}/${item.href}` : item.href;
+        const currentPath = item.href
+            ? `${parentPath}/${item.href}`.replace(/\/+/g, '/').replace(/\/$/, '')
+            : parentPath;
+
         const flatItem = { ...item, href: currentPath };
 
         if ('children' in item && Array.isArray(item.children)) {

@@ -4,18 +4,20 @@ import React from 'react';
 import { Drawer } from 'vaul';
 import NextLink from 'next/link';
 import { cn } from '@/lib/utils';
-import { notFound, usePathname, useRouter } from 'next/navigation';
-import { useTheme } from 'next-themes';
+import { usePathname } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { menu } from '@/lib/menu';
 import { ChevronDown, ChevronRight } from 'lucide-react';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion } from 'motion/react';
 import * as NavigationMenu from '@radix-ui/react-navigation-menu';
+import Image from 'next/image';
+import { useScopedI18n, useCurrentLocale, useChangeLocale, locales } from '@/locales/client';
+import { ThemeButton } from '@/components/theme-button';
 
 export function MarketingHeader() {
     return (
         <header className="bg-background dark:border-b-offgray-800 fixed inset-x-0 top-0 z-2 flex h-[57px] w-full items-center justify-between px-6 py-2 md:gap-x-4 dark:border-b">
-            <h1 className="font-bold">Kobimatik</h1>
+            <h1 className="font-bold">ACME</h1>
             <MobileNav />
             <DesktopNav />
         </header>
@@ -24,6 +26,10 @@ export function MarketingHeader() {
 
 function MobileNav() {
     const [open, setOpen] = React.useState(false);
+    const t = useScopedI18n('menu');
+    const changeLocale = useChangeLocale();
+    const locale = useCurrentLocale();
+    const title = locales.find((l) => l.locale === locale);
 
     return (
         <Drawer.Root open={open} onOpenChange={setOpen}>
@@ -55,33 +61,125 @@ function MobileNav() {
                             if ('drawer' in item && item.drawer) {
                                 const Icon = item.icon;
                                 return (
-                                    <Drawer.NestedRoot key={String(item.drawer)}>
+                                    <Drawer.NestedRoot
+                                        key={`drawer-${index}-${item.name}-${item.title ?? ''}`}
+                                    >
                                         <Drawer.Trigger asChild>
                                             <span
                                                 key={index}
                                                 className="dark:text-offgray-50 hover:bg-offgray-100/50 dark:hover:bg-offgray-500/10 flex h-8 w-full items-center justify-start gap-3 gap-x-2 rounded-sm border border-transparent px-2.5 text-sm tracking-tight text-nowrap text-black transition-colors duration-75 select-none disabled:cursor-not-allowed disabled:opacity-50"
                                             >
-                                                <Icon className="size-[14px] text-blue-400" />
-                                                {item.name}
+                                                {Icon && (
+                                                    <Icon className="size-[14px] text-blue-400" />
+                                                )}
+                                                {t(item.name as any)} {/* FIXME: Remove any */}
                                                 <ChevronRight className="ml-auto size-[14px] text-blue-400" />
                                             </span>
                                         </Drawer.Trigger>
                                         <Drawer.Portal>
                                             <Drawer.Overlay className="fixed inset-0 bg-black/40 backdrop-blur-md" />
-                                            <Drawer.Content className="bg-background fixed right-0 bottom-0 left-0 z-102 mt-24 flex h-fit flex-col rounded-t-[10px] outline-none">
-                                                <Drawer.Description className="sr-only">
-                                                    İkinci Menü
+                                            <Drawer.Content
+                                                className={cn(
+                                                    'bg-background fixed right-0 bottom-0 left-0 z-102 mt-24 flex flex-col rounded-t-[10px] outline-none',
+                                                    // "code" in item.children array.
+                                                    item.children?.some((item) => 'code' in item)
+                                                        ? 'h-[70%]'
+                                                        : 'h-fit',
+                                                )}
+                                            >
+                                                <Drawer.Description
+                                                    className={cn(
+                                                        item.title
+                                                            ? 'text-offgray-600 dark:text-offgray-200 inline-flex items-center justify-between px-4 pt-8 pb-2 text-lg font-bold'
+                                                            : 'sr-only',
+                                                    )}
+                                                >
+                                                    <span>{t('countrySelect')}</span>{' '}
+                                                    {title?.locale && (
+                                                        <span className="text-offgray-500 font-lora text-[12px] font-semibold italic">
+                                                            {`(${t('choosen')}: ${title.displayName})`}
+                                                        </span>
+                                                    )}
                                                 </Drawer.Description>
                                                 <Drawer.Title className="sr-only">
                                                     İkinci Menü
                                                 </Drawer.Title>
-                                                <nav className="flex flex-col gap-2 p-4">
-                                                    {item.children.map((item, subIndex) => {
+                                                <nav className="flex flex-1 flex-col gap-2 overflow-y-auto p-4">
+                                                    {item.children?.map((item, subIndex) => {
+                                                        if ('code' in item) {
+                                                            return (
+                                                                <button
+                                                                    aria-label={item.name}
+                                                                    aria-pressed={
+                                                                        locale === item.href
+                                                                    }
+                                                                    aria-disabled={
+                                                                        locale === item.href ||
+                                                                        !locales.find(
+                                                                            (l) =>
+                                                                                l.locale ===
+                                                                                item.href,
+                                                                        )
+                                                                    }
+                                                                    type="button"
+                                                                    key={`${item.code}-${item.name}-${subIndex}`}
+                                                                    className={cn(
+                                                                        'hover:bg-offgray-100/50 dark:hover:bg-offgray-500/10 inline-flex w-full cursor-pointer items-center justify-start gap-x-2 rounded-sm border border-transparent px-2.5 text-sm tracking-tight text-nowrap text-black transition-colors duration-75 select-none disabled:cursor-not-allowed disabled:opacity-50',
+                                                                        locale === item.href
+                                                                            ? 'bg-offgray-100/50 dark:bg-offgray-500/10 cursor-auto'
+                                                                            : '',
+                                                                    )}
+                                                                    disabled={
+                                                                        !locales.find(
+                                                                            (l) =>
+                                                                                l.locale ===
+                                                                                item.href,
+                                                                        )
+                                                                    }
+                                                                    onClick={() => {
+                                                                        if (item.href === locale) {
+                                                                            //toast.error(t('alreadySelected'));
+                                                                            return;
+                                                                        }
+                                                                        changeLocale(
+                                                                            item.href as any,
+                                                                        ); // FIXME: Remove any
+                                                                    }}
+                                                                >
+                                                                    <Image
+                                                                        className="h-8 w-auto"
+                                                                        src={(item as any).image} // FIXME: Remove any
+                                                                        alt={
+                                                                            item.name + ' Flag url'
+                                                                        }
+                                                                        width={30}
+                                                                        height={30}
+                                                                    />
+                                                                    {item.href === locale && (
+                                                                        <span className="dark:text-offgray-200 text-sm font-semibold tracking-tight text-nowrap text-blue-400 italic">
+                                                                            {t('active')}
+                                                                        </span>
+                                                                    )}
+                                                                    {!locales.find(
+                                                                        (l) =>
+                                                                            l.locale === item.href,
+                                                                    ) && (
+                                                                        <span className="text-sm text-red-500">
+                                                                            {t('soon')}
+                                                                        </span>
+                                                                    )}
+                                                                    <span className="dark:text-offgray-200 ml-auto text-sm text-[14px] font-semibold tracking-tight text-nowrap text-gray-500">
+                                                                        {(item as any).nativeName}{' '}
+                                                                        {/* FIXME: Remove any */}
+                                                                    </span>
+                                                                </button>
+                                                            );
+                                                        }
                                                         if ('header' in item && item.children) {
                                                             return (
                                                                 <React.Fragment key={item.header}>
                                                                     <h3
-                                                                        key={`header-${item.header}`}
+                                                                        key={`header-${item.header}-${subIndex}`}
                                                                         className="text-offgray-600 px-2 py-1 font-mono text-[13px] font-bold tracking-wider uppercase"
                                                                     >
                                                                         {item.header}
@@ -91,22 +189,34 @@ function MobileNav() {
                                                                             href,
                                                                             icon: Icon,
                                                                             name,
-                                                                        }) => (
-                                                                            <Link
-                                                                                key={name}
-                                                                                href={href}
-                                                                                onClick={() =>
-                                                                                    setOpen(false)
-                                                                                }
-                                                                                className={cn(
-                                                                                    'group dark:text-offgray-50 hover:bg-offgray-100/50 dark:hover:bg-offgray-500/10 flex h-8 w-full items-center justify-start gap-3 gap-x-2 rounded-sm border border-transparent px-2.5 text-sm tracking-tight text-nowrap text-black transition-colors duration-75 select-none disabled:cursor-not-allowed disabled:opacity-50',
-                                                                                )}
-                                                                            >
-                                                                                <Icon className="size-[14px] text-blue-400" />
-                                                                                {name}
-                                                                                <ChevronRight className="ml-auto size-[14px] text-blue-400" />
-                                                                            </Link>
-                                                                        ),
+                                                                            published,
+                                                                        }) => {
+                                                                            if (published === false)
+                                                                                return null;
+                                                                            return (
+                                                                                <Link
+                                                                                    key={`${name}-${href}`}
+                                                                                    href={
+                                                                                        href ?? ''
+                                                                                    }
+                                                                                    onClick={() =>
+                                                                                        setOpen(
+                                                                                            false,
+                                                                                        )
+                                                                                    }
+                                                                                    className={cn(
+                                                                                        'group dark:text-offgray-50 hover:bg-offgray-100/50 dark:hover:bg-offgray-500/10 flex h-8 w-full items-center justify-start gap-3 gap-x-2 rounded-sm border border-transparent px-2.5 text-sm tracking-tight text-nowrap text-black transition-colors duration-75 select-none disabled:cursor-not-allowed disabled:opacity-50',
+                                                                                    )}
+                                                                                >
+                                                                                    {Icon && (
+                                                                                        <Icon className="size-[14px] text-blue-400" />
+                                                                                    )}
+                                                                                    {t(name as any)}{' '}
+                                                                                    {/* FIXME: Remove any */}
+                                                                                    <ChevronRight className="ml-auto size-[14px] text-blue-400" />
+                                                                                </Link>
+                                                                            );
+                                                                        },
                                                                     )}
                                                                 </React.Fragment>
                                                             );
@@ -115,7 +225,7 @@ function MobileNav() {
                                                         if ('seperator' in item && item.seperator) {
                                                             return (
                                                                 <hr
-                                                                    key={`seperator-${item.header}-${subIndex}`}
+                                                                    key={`seperator-${subIndex}`}
                                                                     className="my-2 border-gray-200 dark:border-gray-600/20"
                                                                 />
                                                             );
@@ -124,9 +234,13 @@ function MobileNav() {
                                                         return null;
                                                     })}
                                                 </nav>
+                                                <hr
+                                                    key={`seperator-${index}`}
+                                                    className="mx-4 my-2 mt-4 border-gray-200 dark:border-gray-600/20"
+                                                />
                                                 <div className="px-4 py-4">
                                                     <Drawer.Close asChild>
-                                                        <Button>Alt Menüyü Kapat</Button>
+                                                        <Button>{t('closeSubMenu')}</Button>
                                                     </Drawer.Close>
                                                 </div>
                                             </Drawer.Content>
@@ -157,19 +271,19 @@ function MobileNav() {
                             }
 
                             if ('children' in item && item.children && !('drawer' in item)) {
-                                return item.children.map((item, subIndex) => {
+                                return item.children.map((item) => {
                                     const Icon = item.icon ?? 'span';
                                     return (
                                         <Link
                                             key={item.name}
-                                            href={item.href}
+                                            href={item.href ?? ''}
                                             onClick={() => setOpen(false)}
                                             className={cn(
                                                 'group dark:text-offgray-50 hover:bg-offgray-100/50 dark:hover:bg-offgray-500/10 flex h-8 w-full items-center justify-start gap-3 gap-x-2 rounded-sm border border-transparent px-2.5 text-sm tracking-tight text-nowrap text-black transition-colors duration-75 select-none disabled:cursor-not-allowed disabled:opacity-50',
                                             )}
                                         >
                                             <Icon className="size-[14px] text-blue-400" />
-                                            {item.name}
+                                            {t(item.name as any)} {/* FIXME: Remove any */}
                                             <ChevronRight className="ml-auto size-[14px] text-blue-400" />
                                         </Link>
                                     );
@@ -178,14 +292,14 @@ function MobileNav() {
 
                             const Icon = item.icon ?? 'span';
 
-                            if (!item.href) {
+                            if (!item.href && item.name) {
                                 return (
                                     <span
                                         key={item.name}
                                         className="dark:text-offgray-50 hover:bg-offgray-100/50 dark:hover:bg-offgray-500/10 flex h-8 w-full items-center justify-start gap-3 gap-x-2 rounded-sm border border-transparent px-2.5 text-sm tracking-tight text-nowrap text-black transition-colors duration-75 select-none disabled:cursor-not-allowed disabled:opacity-50"
                                     >
                                         <Icon className="size-[14px] text-blue-400" />
-                                        {item.name}
+                                        {t(item.name)}
                                         <ChevronRight className="ml-auto size-[14px] text-blue-400" />
                                     </span>
                                 );
@@ -194,14 +308,14 @@ function MobileNav() {
                             return (
                                 <Link
                                     key={index}
-                                    href={item.href}
+                                    href={item.href ?? ''}
                                     onClick={() => setOpen(false)}
                                     className={cn(
                                         'group dark:text-offgray-50 hover:bg-offgray-100/50 dark:hover:bg-offgray-500/10 flex h-8 w-full items-center justify-start gap-3 gap-x-2 rounded-sm border border-transparent px-2.5 text-sm tracking-tight text-nowrap text-black transition-colors duration-75 select-none disabled:cursor-not-allowed disabled:opacity-50',
                                     )}
                                 >
                                     <Icon className="size-[14px] text-blue-400" />
-                                    {item.name}
+                                    {t(item.name as any)} {/* FIXME: Remove any */}
                                     <ChevronRight className="ml-auto size-[14px] text-blue-400" />
                                 </Link>
                             );
@@ -210,7 +324,7 @@ function MobileNav() {
                     <div className="mt-3 flex w-full flex-col justify-center gap-2 p-4">
                         <ThemeButton />
                         <Drawer.Close asChild>
-                            <Button variant="ghost">Menüyü Kapat</Button>
+                            <Button variant="ghost">{t('closeMenu')}</Button>
                         </Drawer.Close>
                     </div>
                 </Drawer.Content>
@@ -248,8 +362,11 @@ function DesktopNav() {
                                         >
                                             <div className="border-offgray-200 dark:border-offgray-900 dark:bg-offgray-900 dark:bg-secondary absolute top-full left-0 z-10 mt-2 min-w-auto rounded-md border bg-white shadow-lg">
                                                 <nav className="flex flex-row gap-x-2">
-                                                    {item.children.map((subItem, subIndex) => {
-                                                        if (subItem.header) {
+                                                    {item.children?.map((subItem, subIndex) => {
+                                                        if (
+                                                            !('code' in subItem) &&
+                                                            subItem.header
+                                                        ) {
                                                             return (
                                                                 <div
                                                                     className={cn(
@@ -266,7 +383,7 @@ function DesktopNav() {
                                                                         {subItem.header}
                                                                     </h3>
                                                                     <div className="flex flex-col gap-2">
-                                                                        {subItem.children.map(
+                                                                        {subItem?.children?.map(
                                                                             ({
                                                                                 href,
                                                                                 name,
@@ -277,12 +394,17 @@ function DesktopNav() {
                                                                                     asChild
                                                                                 >
                                                                                     <Link
-                                                                                        href={href}
+                                                                                        href={
+                                                                                            href ??
+                                                                                            ''
+                                                                                        }
                                                                                         className={cn(
                                                                                             'group dark:text-offgray-50 hover:bg-offgray-100/50 dark:hover:bg-offgray-500/10 flex h-8 w-full items-center justify-start gap-3 gap-x-2 rounded-sm border border-transparent px-2.5 text-[12px] tracking-tight text-nowrap text-black transition-colors duration-75 select-none disabled:cursor-not-allowed disabled:opacity-50',
                                                                                         )}
                                                                                     >
-                                                                                        <Icon className="size-[14px] text-blue-400" />
+                                                                                        {Icon && (
+                                                                                            <Icon className="size-[14px] text-blue-400" />
+                                                                                        )}
                                                                                         {name}
                                                                                     </Link>
                                                                                 </NavigationMenu.Link>
@@ -310,7 +432,7 @@ function DesktopNav() {
                                 <NavigationMenu.Item key={subIndex}>
                                     <NavigationMenu.Link asChild>
                                         <Link
-                                            href={subItem.href}
+                                            href={subItem.href ?? ''}
                                             className={cn(
                                                 'group dark:text-offgray-200 hover:bg-offgray-100/50 dark:hover:bg-offgray-500/10 relative flex h-8 items-center justify-center gap-2 rounded-sm border border-transparent px-1.5 text-xs tracking-tight text-nowrap text-black transition-colors duration-75 duration-200 select-none disabled:cursor-not-allowed disabled:opacity-50',
                                             )}
@@ -348,14 +470,5 @@ function Link({
         >
             {children}
         </Component>
-    );
-}
-
-function ThemeButton() {
-    const { theme, setTheme } = useTheme();
-    return (
-        <Button onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')} type="button">
-            {theme === 'light' ? 'Karanlık Mod' : 'Aydınlık Mod'}
-        </Button>
     );
 }

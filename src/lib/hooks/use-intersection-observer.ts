@@ -1,59 +1,41 @@
-import { useState, useEffect, useRef } from 'react';
+import React from 'react';
 
-export function useIntersectionObserver(ids: string[]) {
-    const [activeId, setActiveId] = useState<string | null>(null);
-    const observerRef = useRef<IntersectionObserver | null>(null);
+export function useIntersectionObserver(
+    itemIds: string[],
+    options: IntersectionObserverInit = {
+        root: null,
+        rootMargin: '100px 0px 0px 0px', // 100px üstündeki elemanlar ekranda olacak şekilde ayarlandı.
+        threshold: 1, // araştırılan elemanın %100'ü ekranda olmak zorunda. 1 => 100%, 0.5 => 50%
+    },
+) {
+    const [activeId, setActiveId] = React.useState<string | null>(null);
 
-    useEffect(() => {
-        const options = {
-            rootMargin: '-20% 0px -80% 0px',
-            threshold: 0,
-        };
+    React.useEffect(() => {
+        const observer = new IntersectionObserver((entries) => {
+            const intersectingEntry = entries.find((entry) => entry.isIntersecting);
+            if (intersectingEntry) {
+                setActiveId(intersectingEntry.target.id);
+            }
+        }, options);
 
-        const callback = (entries: IntersectionObserverEntry[]) => {
-            entries.forEach((entry) => {
-                if (entry.isIntersecting) {
-                    setActiveId(entry.target.id);
-                }
-            });
-        };
-
-        observerRef.current = new IntersectionObserver(callback, options);
-
-        // Görünür olan elementler ilk render sırasında kontrol edilir
-        const checkInitialVisibility = () => {
-            ids.forEach((id) => {
-                const element = document.getElementById(id);
-                if (element && isElementInViewport(element)) {
-                    setActiveId(id);
-                }
-            });
-        };
-
-        // Run the initial check after a short delay to ensure DOM is ready
-        setTimeout(checkInitialVisibility, 100);
-
-        ids.forEach((id) => {
+        itemIds?.forEach((id) => {
             const element = document.getElementById(id);
-            if (element) observerRef.current?.observe(element);
+            if (!element) {
+                console.warn(`Element not found: ${id}`);
+            } else {
+                observer.observe(element);
+            }
         });
 
         return () => {
-            if (observerRef.current) {
-                observerRef.current.disconnect();
-            }
+            itemIds?.forEach((id) => {
+                const element = document.getElementById(id);
+                if (element) {
+                    observer.unobserve(element);
+                }
+            });
         };
-    }, [ids]);
+    }, [itemIds]);
 
     return activeId;
-}
-
-function isElementInViewport(el: Element) {
-    const rect = el.getBoundingClientRect();
-    return (
-        rect.top >= 0 &&
-        rect.left >= 0 &&
-        rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-        rect.right <= (window.innerWidth || document.documentElement.clientWidth)
-    );
 }

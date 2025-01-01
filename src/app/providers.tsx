@@ -1,10 +1,13 @@
 'use client';
 
 import { ThemeProvider, type ThemeProviderProps } from 'next-themes';
+import { I18nProviderClient } from '@/locales/client';
 
-interface ProviderProps extends ThemeProviderProps {}
+interface ProviderProps extends ThemeProviderProps {
+    locale: string;
+}
 
-export function Providers({ children }: ThemeProviderProps) {
+export function Providers({ children, locale }: Readonly<ProviderProps>) {
     return (
         <ThemeProvider
             attribute="class"
@@ -14,7 +17,7 @@ export function Providers({ children }: ThemeProviderProps) {
             storageKey="theme"
             disableTransitionOnChange
         >
-            {children}
+            <I18nProviderClient locale={locale}>{children}</I18nProviderClient>
         </ThemeProvider>
     );
 }
