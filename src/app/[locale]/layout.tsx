@@ -47,7 +47,7 @@ export const viewport = {
     viewportFit: 'cover',
 } satisfies Viewport;
 
-export function generateStaticParams(): { [p: string]: string }[] {
+function generateStaticParams(): { [p: string]: string }[] {
     return getStaticParams();
 }
 

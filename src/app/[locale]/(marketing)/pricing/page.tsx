@@ -5,7 +5,7 @@ import { PricingCard } from '@/components/marketing/pricing-card';
 import { setStaticParamsLocale } from 'next-international/server';
 import { getStaticParams } from '@/locales/server';
 
-export function generateStaticParams() {
+function generateStaticParams() {
     return getStaticParams();
 }
 
