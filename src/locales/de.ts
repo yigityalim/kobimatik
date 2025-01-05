@@ -34,4 +34,50 @@ export default {
         soon: 'Bald',
         active: 'Aktiv',
     },
+    pages: {
+        home: {
+            title: 'Startseite',
+            description: 'Startseitenbeschreibung',
+        },
+        pricing: {
+            title: 'Preise',
+            description: 'Preisbeschreibung',
+            breadcrumbs: {},
+        },
+        report: {
+            create: {
+                title: 'Bericht erstellen',
+                description: 'Bericht erstellen Seite',
+                steps: {
+                    entrepreneurInfo: 'Informationen zum Unternehmer',
+                    startupDetails: 'Details zum Startup',
+                    teamAndFunding: 'Team und Finanzierung',
+                    productAndMarket: 'Produkt und Markt',
+                    financialInfo: 'Finanzinformationen',
+                    challengesAndOpportunities: 'Herausforderungen und Chancen',
+                    advantageAndGoals: 'Wettbewerbsvorteil und Ziele',
+                },
+                fields: {
+                    startupName: 'Name des Startups',
+                    userType: 'Benutzertyp',
+                    industry: 'Branche',
+                    foundingYear: 'Gründungsjahr',
+                    teamSize: 'Teamgröße',
+                    fundingStage: 'Finanzierungsphase',
+                    productDescription: 'Produktbeschreibung',
+                    targetMarket: 'Zielmarkt',
+                    revenue: 'Jahreseinnahmen',
+                    growthRate: 'Wachstumsrate',
+                    challenges: 'Herausforderungen',
+                    opportunities: 'Chancen',
+                    competitiveAdvantage: 'Wettbewerbsvorteil',
+                    futureGoals: 'Zukünftige Ziele',
+                },
+                placeholders: {
+                    startupName: 'Geben Sie den Namen Ihres Startups ein',
+                    userType: 'Wählen Sie Ihren Benutzertyp aus',
+                },
+            },
+        },
+    },
 } as const;

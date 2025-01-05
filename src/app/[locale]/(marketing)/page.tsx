@@ -1,4 +1,3 @@
-import { redirect } from 'next/navigation';
 import { setStaticParamsLocale } from 'next-international/server';
 
 export default async function Page({ params }: { params: Promise<{ locale: string }> }) {

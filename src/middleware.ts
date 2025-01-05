@@ -1,10 +1,10 @@
 import { createI18nMiddleware } from 'next-international/middleware';
 import { NextRequest } from 'next/server';
-import { locales } from '@/locales/client';
+import { DEFAULT_LANG, locales } from '@/locales/server';
 
 const I18nMiddleware = createI18nMiddleware({
-    locales: ['tr', 'en', 'de', 'fr', 'it', 'es', 'nl'],
-    defaultLocale: 'tr',
+    locales,
+    defaultLocale: DEFAULT_LANG,
 });
 
 export function middleware(request: NextRequest) {

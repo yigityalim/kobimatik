@@ -62,6 +62,15 @@
     --animate-spin-slow: spin 32s linear infinite
 }
 
+*:focus {
+    outline: 2px solid var(--color-accent-blue);
+    outline-offset: 2px;
+}
+
+*:focus:not(:focus-visible) {
+    outline: none;
+}
+
 .dark {
     --color-background: #121417;
     --color-foreground: #f6f4ef;

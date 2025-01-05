@@ -1,11 +1,13 @@
 'use client';
 
-import React from 'react';
+import { useRef, useEffect } from 'react';
 
 export function Authors() {
-    React.useEffect(() => {
-        console.log(
-            `
+    const ref = useRef<boolean | undefined>(undefined);
+
+    useEffect(() => {
+        if (!ref.current) {
+            console.log(`
         
 Proje ismi: KobiMatik
 
@@ -27,8 +29,9 @@ Site Linkleri:
 1. https://www.mehmetyigityalim.com
 2. https://www.berkaypolat.com.tr
 
-`,
-        );
+`);
+            ref.current = true;
+        }
     }, []);
 
     return null;

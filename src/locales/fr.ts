@@ -34,4 +34,46 @@ export default {
         soon: 'Bientôt',
         active: 'Actif',
     },
+    pages: {
+        home: {
+            title: 'Accueil',
+            description: "Bienvenue sur notre page d'accueil.",
+        },
+        pricing: {
+            title: 'Tarifs',
+            description: 'Découvrez nos',
+            breadcrumbs: {},
+        },
+        report: {
+            create: {
+                title: 'Créer un rapport',
+                description: 'Créez un rapport',
+                steps: {
+                    entrepreneurInfo: "Informations sur l'Entrepreneur",
+                    startupDetails: 'Détails de la Startup',
+                    teamAndFunding: 'Équipe et Financement',
+                    productAndMarket: 'Produit et Marché',
+                    financialInfo: 'Informations Financières',
+                    challengesAndOpportunities: 'Défis et Opportunités',
+                    advantageAndGoals: 'Avantage Concurrentiel et Objectifs',
+                },
+                fields: {
+                    startupName: 'Nom de la Startup',
+                    userType: "Type d'Utilisateur",
+                    industry: 'Industrie',
+                    foundingYear: 'Année de Fondation',
+                    teamSize: "Taille de l'Équipe",
+                    fundingStage: 'Phase de Financement',
+                    productDescription: 'Description du Produit',
+                    targetMarket: 'Marché Cible',
+                    revenue: 'Revenu Annuel',
+                    growthRate: 'Taux de Croissance',
+                    challenges: 'Défis',
+                    opportunities: 'Opportunités',
+                    competitiveAdvantage: 'Avantage Concurrentiel',
+                    futureGoals: 'Objectifs Futurs',
+                },
+            },
+        },
+    },
 } as const;

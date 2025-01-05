@@ -34,4 +34,45 @@ export default {
         soon: 'Soon',
         active: 'Active',
     },
+    pages: {
+        home: {
+            title: 'Homepage',
+            description: 'Homepage description',
+        },
+        pricing: {
+            title: 'Pricing',
+            description: 'Pricing description',
+        },
+        report: {
+            create: {
+                title: 'Create Report',
+                description: 'Create report page',
+                steps: {
+                    entrepreneurInfo: 'Entrepreneur Information',
+                    startupDetails: 'Startup Details',
+                    teamAndFunding: 'Team and Funding',
+                    productAndMarket: 'Product and Market',
+                    financialInfo: 'Financial Information',
+                    challengesAndOpportunities: 'Challenges and Opportunities',
+                    advantageAndGoals: 'Competitive Advantage and Goals',
+                },
+                fields: {
+                    startupName: 'Startup Name',
+                    userType: 'User Type',
+                    industry: 'Industry',
+                    foundingYear: 'Founding Year',
+                    teamSize: 'Team Size',
+                    fundingStage: 'Funding Stage',
+                    productDescription: 'Product Description',
+                    targetMarket: 'Target Market',
+                    revenue: 'Annual Revenue',
+                    growthRate: 'Growth Rate',
+                    challenges: 'Challenges',
+                    opportunities: 'Opportunities',
+                    competitiveAdvantage: 'Competitive Advantage',
+                    futureGoals: 'Future Goals',
+                },
+            },
+        },
+    },
 } as const;

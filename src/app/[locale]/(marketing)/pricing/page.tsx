@@ -1,21 +1,19 @@
-'use client';
 import React from 'react';
 import { PageLayout } from '@/components/marketing/page-layout';
 import { pricing } from '@/mocks/pricing';
 import { PricingCard } from '@/components/marketing/pricing-card';
+import { setStaticParamsLocale } from 'next-international/server';
+import { getStaticParams } from '@/locales/server';
 
-export default function PricingPage() {
+export function generateStaticParams() {
+    return getStaticParams();
+}
+
+export default async function Page({ params }: { params: Promise<{ locale: string }> }) {
+    const { locale } = await params;
+    setStaticParamsLocale(locale);
     return (
-        <PageLayout
-            breadcrumbs={
-                pricing.map((p) => ({
-                    id: p.id,
-                    name: p.name,
-                    icon: p.icon,
-                })) as any
-            }
-            pageHeading="Ödeme"
-        >
+        <PageLayout pageHeading="pricing.title" pageDescription="pricing.description">
             <div className="col-span-5 grid lg:col-span-4">
                 {pricing.map((pricing) => (
                     <PricingCard key={pricing.id} {...pricing} />

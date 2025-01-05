@@ -8,7 +8,7 @@ import { Drawer } from 'vaul';
 import { cn, sleep, smoothScroll } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { useIntersectionObserver } from '@/lib/hooks/use-intersection-observer';
-import { useCurrentLocale, useI18n } from '@/locales/client';
+import { useCurrentLocale, useScopedI18n } from '@/locales/client';
 
 export type Breadcrumb = {
     id: string;
@@ -17,10 +17,22 @@ export type Breadcrumb = {
     href?: string;
 };
 
-interface PageLayoutProps extends React.PropsWithChildren {
+type DotNotation<T, K extends string> = T extends object
+    ? {
+          [P in keyof T]: P extends string
+              ? T[P] extends object
+                  ? `${P}.${DotNotation<T[P], K>}`
+                  : P extends K
+                    ? P
+                    : never
+              : never;
+      }[keyof T]
+    : never;
+
+export interface PageLayoutProps extends React.PropsWithChildren {
     breadcrumbs?: Breadcrumb[];
-    pageHeading?: string;
-    pageDescription?: string;
+    pageHeading: DotNotation<(typeof import('@/locales/tr').default)['pages'], 'title'>;
+    pageDescription: DotNotation<(typeof import('@/locales/tr').default)['pages'], 'description'>;
 }
 
 export function PageLayout({
@@ -30,7 +42,7 @@ export function PageLayout({
     pageDescription,
 }: Readonly<PageLayoutProps>) {
     const pathname = usePathname();
-    const t = useI18n();
+    const t = useScopedI18n('pages');
     const locale = useCurrentLocale();
     const router = useRouter();
     const activeId =
@@ -89,16 +101,16 @@ export function PageLayout({
                 <div className="mx-auto flex w-full max-w-(--breakpoint-sm) flex-col items-start justify-between gap-8 md:max-w-[1200px] md:flex-row md:items-center">
                     <hgroup className="mx-auto flex w-full max-w-lg max-w-xl flex-col items-center gap-1">
                         <h2 className="font-lora text-accent-blue mb-2.5 scroll-mt-24 text-center text-[clamp(2.5rem,1.2rem_+_1vw,1.7rem)] font-medium text-pretty dark:text-blue-300">
-                            {page.name}
+                            {t(pageHeading)}
                         </h2>
                         <p className="text-offgray-50 dark:text-offgray-600 text-center tracking-tight">
-                            {pageDescription}
+                            {t(pageDescription)}
                         </p>
                     </hgroup>
                 </div>
             </section>
             {breadcrumbs && (
-                <div className="text-offgray-600 col-span-5 max-w-5xl px-0 pb-2.5 text-center font-mono text-[.6875rem] font-bold tracking-wider uppercase lg:col-span-1 lg:px-2.5 lg:text-left">
+                <div className="text-offgray-600 col-span-5 max-w-5xl text-center font-mono text-[.6875rem] font-bold tracking-wider uppercase md:px-0 md:pb-2.5 lg:col-span-1 lg:px-2.5 lg:text-left">
                     <nav className="fixed bottom-0 left-0 z-2 flex w-full px-4 py-2 md:hidden">
                         <Drawer.Root>
                             <Drawer.Trigger className="border-t-offgray-400/50 dark:border-t-offgray-800/50 bg-background fixed bottom-0 left-0 z-2 inline-flex w-full items-center justify-center border-t py-4 md:hidden">
@@ -157,7 +169,7 @@ export function PageLayout({
                     </nav>
                     <nav className="hidden pt-0 md:block lg:sticky lg:top-24 lg:pt-10 lg:pl-12">
                         <p className="text-offgray-600 px-0 pt-4 pb-2.5 text-center font-mono text-[.6975rem] font-bold tracking-wider uppercase select-none lg:border-l lg:px-2.5 lg:text-left dark:border-l-gray-700/20">
-                            {pageHeading}{' '}
+                            {t(pageHeading)}{' '}
                         </p>
                         <ul
                             className="flex overflow-x-auto text-sm lg:flex-col"

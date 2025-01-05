@@ -34,4 +34,46 @@ export default {
         soon: 'Binnenkort',
         active: 'Actief',
     },
+    pages: {
+        home: {
+            title: 'Home',
+            description: 'Home beschrijving',
+        },
+        pricing: {
+            title: 'Betaling',
+            description: 'U kunt hier uw betalingen doen.',
+            breadcrumbs: {},
+        },
+        report: {
+            create: {
+                title: 'Rapport aanmaken',
+                description: 'Maak een nieuw rapport aan.',
+                steps: {
+                    entrepreneurInfo: 'Informatie over de Ondernemer',
+                    startupDetails: 'Startup Details',
+                    teamAndFunding: 'Team en Financiering',
+                    productAndMarket: 'Product en Markt',
+                    financialInfo: 'Financiële Informatie',
+                    challengesAndOpportunities: 'Uitdagingen en Kansen',
+                    advantageAndGoals: 'Concurrentievoordeel en Doelen',
+                },
+                fields: {
+                    startupName: 'Naam van de Startup',
+                    userType: 'Gebruikerstype',
+                    industry: 'Industrie',
+                    foundingYear: 'Oprichtingsjaar',
+                    teamSize: 'Teamgrootte',
+                    fundingStage: 'Financieringsfase',
+                    productDescription: 'Productbeschrijving',
+                    targetMarket: 'Doelmarkt',
+                    revenue: 'Jaarlijkse Omzet',
+                    growthRate: 'Groei Percentage',
+                    challenges: 'Uitdagingen',
+                    opportunities: 'Kansen',
+                    competitiveAdvantage: 'Concurrentievoordeel',
+                    futureGoals: 'Toekomstige Doelen',
+                },
+            },
+        },
+    },
 } as const;

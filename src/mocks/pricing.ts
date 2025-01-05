@@ -5,6 +5,7 @@ export const pricing = [
     {
         id: 1,
         name: 'Ön Fizibilite Raporu',
+        title: 'locale-text',
         icon: Scale,
         description: `Fizibilete raporunun [[temel]] özellikleri. $Bu plan basit için gayet yeterli oldu.$ **Kobimatik'in** sunduğu hizmetlerden __çok memnun kaldım.__`,
         price: 0, // free
@@ -29,6 +30,7 @@ export const pricing = [
     {
         id: 2,
         name: 'Fizibilite Raporu',
+        title: 'locale-text',
         icon: ClipboardMinus,
         description: `İş fikrin için detaylı bir rapor. $Bu planı seçmek gerçekten çok mantıklı bir fikirdi. Özellikle Ön fizibilite raporu iş kurma sürecimde çok yardımcı oldu.$`,
         price: 183, // ₺183
@@ -51,6 +53,7 @@ export const pricing = [
     {
         id: 3,
         name: 'Gelişmiş Fizibilite ve İş Planı',
+        title: 'locale-text',
         icon: Lightbulb,
         description: `$Bu plan ile birlikte startup'ımı hızlı bir şekilde kurdum.$ Özellikle iş planı hazırlama sürecimde çok yardımcı oldu.`,
         price: 490, // ₺490

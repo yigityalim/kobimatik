@@ -34,4 +34,46 @@ export default {
         soon: 'Presto',
         active: 'Attivo',
     },
+    pages: {
+        home: {
+            title: 'Home',
+            description: 'Descrizione della home',
+        },
+        pricing: {
+            title: 'Pagamento',
+            description: 'Puoi effettuare i tuoi pagamenti qui.',
+            breadcrumbs: {},
+        },
+        report: {
+            create: {
+                title: 'Crea un nuovo rapporto',
+                description: 'Crea un nuovo rapporto qui.',
+                steps: {
+                    entrepreneurInfo: "Informazioni sull'Imprenditore",
+                    startupDetails: 'Dettagli sulla Startup',
+                    teamAndFunding: 'Team e Finanziamenti',
+                    productAndMarket: 'Prodotto e Mercato',
+                    financialInfo: 'Informazioni Finanziarie',
+                    challengesAndOpportunities: 'Sfide e Opportunità',
+                    advantageAndGoals: 'Vantaggio Competitivo e Obiettivi',
+                },
+                fields: {
+                    startupName: 'Nome della Startup',
+                    userType: 'Tipo di Utente',
+                    industry: 'Settore',
+                    foundingYear: 'Anno di Fondazione',
+                    teamSize: 'Dimensione del Team',
+                    fundingStage: 'Fase di Finanziamento',
+                    productDescription: 'Descrizione del Prodotto',
+                    targetMarket: 'Mercato Target',
+                    revenue: 'Entrate Annuali',
+                    growthRate: 'Tasso di Crescita',
+                    challenges: 'Sfide',
+                    opportunities: 'Opportunità',
+                    competitiveAdvantage: 'Vantaggio Competitivo',
+                    futureGoals: 'Obiettivi Futuri',
+                },
+            },
+        },
+    },
 } as const;

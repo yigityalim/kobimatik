@@ -13,6 +13,7 @@ const buttonVariants = cva(
                     'bg-offgray-50/60 text-black border-offgray-200/50 bg-white dark:bg-background [box-shadow:hsl(218,_13%,_50%,_0.1)_0_-2px_0_0_inset] dark:bg-offgray-300/5 dark:text-offgray-50 dark:border-offgray-400/20 dark:[box-shadow:hsl(218,_13%,_70%,_0.08)_0_-2px_0_0_inset]',
                 secondary: 'bg-accent-blue dark:bg-offgray-900 text-white',
                 ghost: 'text-black dark:text-offgray-50 border-transparent hover:bg-offgray-100/50 dark:hover:bg-offgray-500/10',
+                success: 'bg-blue-500 text-white dark:bg-accent-blue',
             },
             size: {
                 default: 'h-9 px-4 py-2',

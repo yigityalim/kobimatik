@@ -58,6 +58,7 @@ export const menu: MenuItem[] = [
             },
             {
                 name: 'pricing',
+                title: 'title',
                 icon: ({ ...props }: LucideProps) => (
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
