@@ -13,16 +13,16 @@ import { NavigationButtons } from '@/components/multi-step-form/navigation-butto
 import { PreviousDataDrawer } from '@/components/multi-step-form/previous-data-drawer';
 
 export function MultiStepForm<T extends z.ZodObject<any>>({
-                                                            steps,
-                                                            schemas,
-                                                            onSubmit
-                                                          }: MultiStepFormProps<T>) {
+  steps,
+  schemas,
+  onSubmit,
+}: Readonly<MultiStepFormProps<T>>) {
   const [currentStep, setCurrentStep] = useState(0);
   const [collectedData, setCollectedData] = useState<FormData>({});
 
   const methods = useForm<z.infer<T>>({
     resolver: zodResolver(schemas[currentStep]),
-    mode: 'onSubmit'
+    mode: 'onSubmit',
   });
 
   useEffect(() => {
@@ -34,7 +34,7 @@ export function MultiStepForm<T extends z.ZodObject<any>>({
   const handleFormSubmit = async (data: Partial<z.infer<T>>) => {
     const updatedData = { ...collectedData, ...data };
     setCollectedData(updatedData);
-    console.log("MultiStepForm -> updatedData", updatedData);
+    console.log('MultiStepForm -> updatedData', updatedData);
 
     if (currentStep < steps.length - 1) {
       setCurrentStep(currentStep + 1);
@@ -42,9 +42,6 @@ export function MultiStepForm<T extends z.ZodObject<any>>({
       await onSubmit(updatedData as z.infer<T>);
     }
   };
-
-  const nextStep = () => setCurrentStep(current => Math.min(current + 1, steps.length - 1));
-  const prevStep = () => setCurrentStep(current => Math.max(current - 1, 0));
 
   const renderField = (field: Field) => {
     if (field.type === 'select') {
@@ -55,7 +52,10 @@ export function MultiStepForm<T extends z.ZodObject<any>>({
 
   return (
     <FormProvider {...methods}>
-      <form onSubmit={methods.handleSubmit((data) => handleFormSubmit({ ...collectedData, ...data }))} className="space-y-4">
+      <form
+        onSubmit={methods.handleSubmit((data) => handleFormSubmit({ ...collectedData, ...data }))}
+        className="space-y-2"
+      >
         <ProgressBar
           steps={steps}
           currentStep={currentStep}
@@ -74,9 +74,18 @@ export function MultiStepForm<T extends z.ZodObject<any>>({
           </motion.div>
         </AnimatePresence>
 
-        <NavigationButtons currentStep={currentStep} setCurrentStep={setCurrentStep} stepsLength={steps.length} />
+        <NavigationButtons
+          currentStep={currentStep}
+          setCurrentStep={setCurrentStep}
+          stepsLength={steps.length}
+        />
         {currentStep > 0 && (
-          <PreviousDataDrawer steps={steps} currentStep={currentStep} setCurrentStep={setCurrentStep} collectedData={collectedData} />
+          <PreviousDataDrawer
+            steps={steps}
+            currentStep={currentStep}
+            setCurrentStep={setCurrentStep}
+            collectedData={collectedData}
+          />
         )}
       </form>
     </FormProvider>

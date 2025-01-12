@@ -7,13 +7,20 @@ export const signInSchema = z.object({
 
 export type SignInInput = z.infer<typeof signInSchema>
 
+const emailSchema = z.object({
+    email: z.string().email('Geçerli bir e-posta adresi giriniz.'),
+})
+
+const nameSchema = z.object({
+    name: z.string().min(1, 'Adınız gereklidir'),
+    surname: z.string().optional(),
+})
+
 export const forgotPasswordSchemas = [
-    z.object({
-        email: z.string().email('Geçerli bir e-posta adresi giriniz.'),
-    }),
-    z.object({
-        name: z.string().min(1, 'Adınız gereklidir'),
-    }),
+    emailSchema,
+    nameSchema,
 ]
 
-export type ForgotPasswordInput = z.infer<(typeof forgotPasswordSchemas)[number]>
+const forgotPasswordSchema = emailSchema.merge(nameSchema)
+
+export type ForgotPasswordInput = z.infer<typeof forgotPasswordSchema>

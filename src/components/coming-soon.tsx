@@ -8,38 +8,46 @@ import { redirect } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 
 export function ComingSoon() {
-    const t = useI18n();
+  const t = useI18n();
 
-    useEffect(() => {
-        document.body.style.overflow = 'hidden';
-        return () => {
-            document.body.style.overflow = 'unset';
-        };
-    }, []);
+  useEffect(() => {
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, []);
 
-    return (
-        <div className="fixed inset-0 flex items-center justify-center bg-background/80 backdrop-blur z-2">
-            <div className="flex flex-col items-center gap-6 max-w-lg text-center p-8">
-                <h2 className="text-2xl font-medium font-lora italic text-accent-blue underline underline-offset-2">{t('coming_soon.title')}</h2>
-                <p className="text-muted-foreground">
-                    {t('coming_soon.description', { name: 'kobimatik' })}
-                </p>
-                <p>{t('coming_soon.cta')}</p>
-                <div className="flex flex-row gap-x-2 items-center">
-                    <a href="https://twitter.com/kobimatik" className="text-primary underline">Twitter</a>
-                    <a href="https://instagram.com/kobimatik" className="text-primary underline">Instagram</a>
-                    <a href="https://facebook.com/kobimatik" className="text-primary underline">Facebook</a>
-                </div>
-                <Button
-                    onClick={async () => {
-                        await authClient.signOut();
-                        redirect('/');
-                    }}
-                >
-                    Çıkış Yap
-                </Button>
-            </div>
-            <div className="bg-[url('/noise.0e24d0e5.png')] min-h-dvh pointer-events-none absolute inset-0 -z-1 bg-[size:180px] bg-repeat opacity-[0.035] dark:opacity-[0.020]" />
+  return (
+    <div className="bg-background/80 fixed inset-0 z-2 flex items-center justify-center backdrop-blur">
+      <div className="flex max-w-lg flex-col items-center gap-6 p-8 text-center">
+        <h2 className="font-lora text-accent-blue text-2xl font-medium italic underline underline-offset-2">
+          {t('coming_soon.title')}
+        </h2>
+        <p className="text-muted-foreground">
+          {t('coming_soon.description', { name: 'kobimatik' })}
+        </p>
+        <p>{t('coming_soon.cta')}</p>
+        <div className="flex flex-row items-center gap-x-2">
+          <a href="https://twitter.com/kobimatik" className="text-primary underline">
+            Twitter
+          </a>
+          <a href="https://instagram.com/kobimatik" className="text-primary underline">
+            Instagram
+          </a>
+          <a href="https://facebook.com/kobimatik" className="text-primary underline">
+            Facebook
+          </a>
         </div>
-    );
+        <Button
+          onClick={async () => {
+            await authClient.signOut();
+            redirect('/sign-in');
+          }}
+        >
+          Çıkış Yap
+        </Button>
+      </div>
+      <div className="pointer-events-none absolute inset-0 -z-1 min-h-dvh bg-[url('/noise.0e24d0e5.png')] bg-[size:180px] bg-repeat opacity-[0.035] dark:opacity-[0.020]" />
+    </div>
+  );
 }

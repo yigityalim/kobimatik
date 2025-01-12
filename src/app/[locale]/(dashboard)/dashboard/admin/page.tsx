@@ -1,14 +1,14 @@
 import { authClient } from '@/lib/auth/client';
-import { unauthorized } from 'next/navigation';
+import { forbidden } from 'next/navigation';
 
 export default async function DashboardPage() {
   const session = await authClient.getSession();
 
-  if (!session.data) unauthorized();
+  if (!session.data) forbidden();
 
   return (
     <div>
-      <h1>Dashboard Page</h1>
+      <h1>Dashboard admin Page</h1>
     </div>
   );
 }
