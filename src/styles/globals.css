@@ -1,14 +1,15 @@
 @import 'tailwindcss';
 
-@plugin 'tailwindcss-animate';
-
 @variant dark (&:is(.dark *));
 @variant hocus (&:hover, &:focus);
 
 @theme {
     --blog-content-width: 820px;
+
+    /* Fonts */
     --font-lora: var(--font-lora);
 
+    /* Colors */
     --color-background: #f6f4ef;
     --color-foreground: #121417;
 
@@ -38,17 +39,25 @@
     --color-offgray-1000: #0b0c0e;
     --color-neutral: #f6f4ef;
     --color-accent-blue: #0751cf;
+
+    /* Font Sizes */
     --text-body: 16px;
     --text-body--line-height: 144%;
     --text-caption: 14px;
     --text-caption--line-height: 144%;
+
+    /* Spacing */
     --aspect-ratio-lottie: 1.78;
     --aspect-ratio-feature-video: 1664/1080;
 
-    --sh-default: 6px 6px 0 #074dcf0f, -6px -6px 0 #074dcf0f;
+    /* Shadows */
+    --sh-default: 6px 6px 0 #074dcf0f,-6px -6px 0 #074dcf0f;
     --sh-alt: 6px 6px 0 #074dcf0f;
-    --nav-bg-color: #f7f7f2f5;
 
+    /* Colors 2 */
+    --color-nav-color: #f7f7f2f5;
+
+    /* Animations */
     --animate-hideToast: hideToast .1s ease-in;
     --animate-slideInToast: slideInToast .15s cubic-bezier(.16, 1, .3, 1);
     --animate-swipeOutToast: swipeOutToast .1s ease-out;
@@ -74,6 +83,9 @@
 .dark {
     --color-background: #121417;
     --color-foreground: #f6f4ef;
+    --color-nav-color: #15171bf2;
+    --sh-default: 5px 5px 0 #3d7df514;
+    --sh-alt: 5px 5px 0 #3d7df514;
 }
 
 .square-gradient-bg {
@@ -86,6 +98,28 @@
     --tw-gradient-from: color-mix(in oklab, var(--color-blue-200) 5%, transparent);
     --tw-gradient-stops: var(--tw-gradient-via-stops, var(--tw-gradient-position) var(--tw-gradient-from) var(--tw-gradient-from-position), var(--tw-gradient-to) var(--tw-gradient-to-position));
     --tw-gradient-to: color-mix(in oklab, var(--color-blue-50) 10%, transparent);
+}
+
+.pattern-bg-white {
+    --pattern-bg-color: #fff
+}
+
+.pattern-blue-400 {
+    --pattern-color: oklch(.707 .165 254.624)
+}
+
+.pattern-opacity-20 {
+    --pattern-opacity: .2
+}
+
+.pattern-size-2 {
+    --pattern-size: .5rem;
+    --pattern-size-half: calc(.5rem/2)
+}
+
+.pattern-diagonal-lines {
+    opacity: var(--pattern-opacity,.4);
+    background: var(--pattern-bg-color, transparent) repeating-linear-gradient(45deg, var(--pattern-color), var(--pattern-color) calc(var(--pattern-size, 40px) * .2), var(--pattern-bg-color, transparent) calc(var(--pattern-size, 40px) * .2), var(--pattern-bg-color) var(--pattern-size, 40px));
 }
 
 input:focus-within {

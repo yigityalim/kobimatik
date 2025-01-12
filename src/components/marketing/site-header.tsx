@@ -16,7 +16,7 @@ import { ThemeButton } from '@/components/theme-button';
 
 export function MarketingHeader() {
     return (
-        <header className="bg-background dark:border-b-offgray-800 fixed inset-x-0 top-0 z-2 flex h-[57px] w-full items-center justify-between px-6 py-2 md:gap-x-4 dark:border-b">
+        <header className="dark:border-b-offgray-800 bg-nav-color border-b-accent-blue/20 fixed inset-x-0 top-0 z-2 flex h-[57px] w-full items-center justify-between border-b px-6 py-2 backdrop-blur-sm md:gap-x-4">
             <h1 className="font-bold">ACME</h1>
             <MobileNav />
             <DesktopNav />
@@ -80,7 +80,7 @@ function MobileNav() {
                                             <Drawer.Overlay className="fixed inset-0 bg-black/40 backdrop-blur-md" />
                                             <Drawer.Content
                                                 className={cn(
-                                                    'bg-background fixed right-0 bottom-0 left-0 z-102 mt-24 flex flex-col rounded-t-[10px] outline-none',
+                                                    'bg-background border-t-offgray-300 dark:border-t-offgray-900 fixed right-0 bottom-0 left-0 z-102 mt-24 flex flex-col border-t outline-none',
                                                     // "code" in item.children array.
                                                     item.children?.some((item) => 'code' in item)
                                                         ? 'h-[70%]'
@@ -284,7 +284,7 @@ function MobileNav() {
                                         >
                                             <Icon className="size-[14px] text-blue-400" />
                                             {t(item.name as any)} {/* FIXME: Remove any */}
-                                            <ChevronRight className="ml-auto size-[14px] text-blue-400" />
+                                            {/*<ChevronRight className="ml-auto size-[14px] text-blue-400" />*/}
                                         </Link>
                                     );
                                 });
@@ -300,7 +300,7 @@ function MobileNav() {
                                     >
                                         <Icon className="size-[14px] text-blue-400" />
                                         {t(item.name)}
-                                        <ChevronRight className="ml-auto size-[14px] text-blue-400" />
+                                        {/*<ChevronRight className="ml-auto size-[14px] text-blue-400" />*/}
                                     </span>
                                 );
                             }
@@ -316,7 +316,7 @@ function MobileNav() {
                                 >
                                     <Icon className="size-[14px] text-blue-400" />
                                     {t(item.name as any)} {/* FIXME: Remove any */}
-                                    <ChevronRight className="ml-auto size-[14px] text-blue-400" />
+                                    {/*<ChevronRight className="ml-auto size-[14px] text-blue-400" />*/}
                                 </Link>
                             );
                         })}

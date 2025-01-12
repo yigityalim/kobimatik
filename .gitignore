@@ -16,6 +16,8 @@
 # contentlayer
 .contentlayer
 
+#lint-staged
+/.husky
 
 # next.js
 /.next/

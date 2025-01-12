@@ -124,7 +124,7 @@ export const menu: MenuItem[] = [
                     {
                         name: 'project',
                         icon: GitPullRequestCreate,
-                        href: '/report/projects',
+                        href: '/report/create',
                     },
                     {
                         name: 'feasibilityReport',

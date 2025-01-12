@@ -65,11 +65,12 @@ export function PageLayout({
 
     return (
         <div className="grid w-full grid-cols-5">
-            <section className="relative col-span-5 mb-4 w-full overflow-clip bg-linear-to-t from-blue-100/30 px-4 py-12 sm:px-6 dark:from-blue-900/5">
+            <section className="relative -z-1 col-span-5 mb-4 w-full overflow-clip bg-linear-to-t from-blue-100/30 px-4 py-32 sm:px-6 dark:from-blue-900/5">
                 {/* bottom gradient */}
-                <div className="from-background to-background/20 pointer-events-none absolute inset-x-0 bottom-0 z-1 h-12 bg-gradient-to-t" />
-                {/* top gradient */}
+                <div className="from-background via-background/60 to-background/20 pointer-events-none absolute inset-x-0 bottom-0 z-1 h-24 bg-gradient-to-t" />
+                {/* top gradient
                 <div className="from-background to-background/20 pointer-events-none absolute inset-x-0 top-0 z-1 h-12 bg-gradient-to-b" />
+                */}
                 {/* left and right gradient
                 <div className="from-background to-background/20 pointer-events-none absolute inset-y-0 left-0 z-1 w-12 bg-gradient-to-r" />
                 <div className="from-background to-background/20 pointer-events-none absolute inset-y-0 right-0 z-1 w-12 bg-gradient-to-l" />

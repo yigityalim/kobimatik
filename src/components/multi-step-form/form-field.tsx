@@ -3,12 +3,13 @@ import { useFormContext } from 'react-hook-form';
 import { Input } from '@/components/ui/input';
 import { FormData } from '@/lib/schemas';
 import { useScopedI18n } from '@/locales/client';
+import { Locale } from '@/locales/server';
 
 interface FormFieldProps {
-    name: keyof FormData;
-    label: string;
+    name: string; //keyof FormData;
+    label: string; //keyof Locale['pages']['report']['create']['fields'];
     type?: string;
-    placeholder?: string;
+    placeholder?: string; //keyof Locale['pages']['report']['create']['placeholders'];
     icon: React.ReactNode;
 }
 
@@ -19,7 +20,8 @@ export const FormField: React.FC<FormFieldProps> = ({
     placeholder,
     icon,
 }) => {
-    const t = useScopedI18n('pages.report.create');
+    const t = useScopedI18n('pages.report.create.fields');
+    const placeholderT = useScopedI18n('pages.report.create.placeholders');
     const {
         register,
         formState: { errors },
@@ -30,7 +32,7 @@ export const FormField: React.FC<FormFieldProps> = ({
                 htmlFor={name}
                 className="text-offgray-700 dark:text-offgray-300 block text-sm font-medium"
             >
-                {t(label as any)}
+                {t(label)}
             </label>
             <div className="relative">
                 <span className="absolute inset-y-0 left-0 flex items-center pl-2">{icon}</span>
@@ -38,7 +40,7 @@ export const FormField: React.FC<FormFieldProps> = ({
                     {...register(name)}
                     id={name}
                     type={type}
-                    placeholder={t(`placeholders.${placeholder}` as any)}
+                    placeholder={placeholderT(placeholder ?? 'unknown')}
                     className="pl-10"
                 />
             </div>

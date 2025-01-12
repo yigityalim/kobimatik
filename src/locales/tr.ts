@@ -41,10 +41,19 @@ export default {
         finish: 'Bitir',
         preview: 'Önizleme',
     },
+    coming_soon: {
+        title: "Çok Yakında!",
+        description: "Bu sayfa şu anda yapım aşamasında. Güncellemeleri takip etmek için bizi Twitter'dan (@{name}) takip edin.",
+        cta: "iletişime geçin",
+    },
     pages: {
         home: {
             title: 'Anasayfa',
             description: 'Anasayfa açıklaması',
+        },
+        howItWorks: {
+            title: 'Nasıl Çalışır?',
+            description: 'Nasıl çalıştığı hakkında bilgi alın.',
         },
         pricing: {
             title: 'Ödeme',
@@ -65,6 +74,8 @@ export default {
                     advantageAndGoals: 'Rekabet Avantajı ve Hedefler',
                 },
                 fields: {
+                    choose: 'Seçiniz',
+                    default: 'Varsayılan',
                     startupName: 'Girişim Adı',
                     userType: 'Kullanıcı Tipi',
                     industry: 'Sektör',
@@ -81,6 +92,7 @@ export default {
                     futureGoals: 'Gelecek Hedefleri',
                 },
                 placeholders: {
+                    unknown: 'Bilinmiyor',
                     startupName: 'Girişim Adınızı Girin',
                     userType: 'Kullanıcı Tipinizi Seçin',
                     industry: 'Sektörünüzü Seçin',

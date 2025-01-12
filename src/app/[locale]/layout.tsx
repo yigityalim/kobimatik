@@ -59,7 +59,11 @@ export default async function RootLayout({
     return (
         <html lang={locale} className="" suppressHydrationWarning>
             <body
-                className={cn('bg-background overflow-x-hidden', writer.className, lora.variable)}
+                className={cn(
+                    'bg-background relative overflow-x-hidden',
+                    writer.className,
+                    lora.variable,
+                )}
             >
                 <Providers locale={locale}>
                     <div className="h-full w-full">{children}</div>
@@ -68,7 +72,7 @@ export default async function RootLayout({
                             style={{
                                 backgroundImage: "url('/noise.0e24d0e5.png')",
                             }}
-                            className="pointer-events-none absolute inset-0 -z-1 bg-[size:180px] bg-repeat opacity-[0.035] dark:opacity-[0.015]"
+                            className="min-h-dvh pointer-events-none absolute inset-0 -z-1 bg-[size:180px] bg-repeat opacity-[0.035] dark:opacity-[0.020]"
                         />
                     </Suspense>
                 </Providers>
