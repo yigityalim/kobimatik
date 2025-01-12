@@ -6,6 +6,14 @@ const nextConfig = {
   experimental: {
     authInterrupts: true,
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'placehold.co',
+      },
+    ],
+  },
 } satisfies NextConfig;
 
 export default nextConfig;

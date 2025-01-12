@@ -1,7 +1,21 @@
 import type React from 'react';
 import { Button } from '@/components/ui/button';
 import { Image } from '@/components/image';
-import { ArrowRight } from 'lucide-react';
+import {
+  ArrowDown,
+  ArrowRight,
+  Atom,
+  Handshake,
+  ListRestart,
+  Presentation,
+  Radio,
+  ShoppingBasket,
+  Users,
+} from 'lucide-react';
+import Link from 'next/link';
+import { format } from 'date-fns';
+import { tr } from 'date-fns/locale';
+import { RecapGrid } from '@/components/recap-grid';
 
 export type RecapOptions = {
   locale: string;
@@ -15,16 +29,55 @@ export type RecapOptions = {
   }[];
 };
 
+const gridItems = [
+  {
+    title: 'Proje Yayını',
+    date: new Date('2024-04-01'),
+    href: '/projects',
+    icon: Presentation,
+  },
+  {
+    title: 'Topluluk Etkinliği',
+    date: new Date('2024-02-01'),
+    href: '/community/events',
+    icon: Users,
+  },
+  {
+    title: 'Ürün Lansmanı',
+    date: new Date('2024-04-01'),
+    href: '/products',
+    icon: ShoppingBasket,
+  },
+  {
+    title: 'Topluluk İlişkileri',
+    date: new Date('2024-05-01'),
+    href: '/community/relations',
+    icon: Atom,
+  },
+  {
+    title: 'Yeni Ortaklıklar',
+    date: new Date('2024-06-01'),
+    href: '/partnerships',
+    icon: Handshake,
+  },
+  {
+    title: 'Canlı Etkinlikler',
+    date: new Date('2024-04-01'),
+    href: '/events',
+    icon: Radio,
+  },
+];
+
 export const recapOptions: RecapOptions = {
-  locale: 'en',
+  locale: 'tr',
   year: '2024',
   recaps: [
     {
       component: () => null,
       date: new Date('2024-01-01'),
-      title: "Acme's 2024 Recap",
+      title: 'Fibizilite 2024 Yılı Raporu',
       description:
-        "This year was a breakthrough for acme. Lots of incredible achievements, which definitely wouldn't have been possible without you. Let's recap.",
+        'Bu yıl, Fibizilite olarak büyük bir sıçrama yaptık. Birçok önemli projeye imza attık ve bunlar sizlerin katkılarıyla mümkün oldu. Gelin, yılı birlikte özetleyelim.',
       footer: () => (
         <>
           <p className="subheader inline-flex items-center gap-x-2 opacity-90 md:hidden">
@@ -45,13 +98,54 @@ export const recapOptions: RecapOptions = {
     },
     {
       component: () => (
-        <Image lightSrc="/oss-light.webp" darkSrc="/oss-dark.webp" alt="2024 Recap" />
+        <Image lightSrc="/oss-light.webp" darkSrc="/oss-dark.webp" alt="2024 Raporu" />
       ),
       date: new Date('2024-02-01'),
-      title: 'Open Source Contributions',
+      title: 'Açık Kaynak Katkılarımız',
       description:
-        'We have made significant contributions to the open-source community. We have released several new projects and contributed to existing ones.',
-      footer: () => <Button className="mt-auto">View Projects</Button>,
+        'Açık kaynak topluluğuna önemli katkılarda bulunduk. Birçok yeni projeyi hayata geçirdik ve mevcut projelere katkılar sağladık.',
+      footer: () => <Button className="mt-auto">Projeleri Görüntüle</Button>,
+    },
+    {
+      component: () => <RecapGrid data={gridItems} />,
+      date: new Date('2024-03-01'),
+      title: 'Fibizilite’nin Katkıları',
+      description: 'Fibizilite olarak açık kaynak topluluğuna olan katkılarımızı keşfedin.',
+      footer: () => <Button className="mt-auto">Takım ile Görüş</Button>,
+    },
+    {
+      component: () => (
+        <Image lightSrc="/product-light.webp" darkSrc="/product-dark.webp" alt="2024 Raporu" />
+      ),
+      date: new Date('2024-04-01'),
+      title: 'Yeni Ürün Lansmanı',
+      description:
+        'Yeni bir ürünümüzü piyasaya sunduk ve müşterilerimizden büyük geri bildirimler aldık. Bu ürünün potansiyeli bizi heyecanlandırıyor.',
+      footer: () => <Button className="mt-auto">Daha Fazla Bilgi</Button>,
+    },
+    {
+      component: () => (
+        <Image lightSrc="/community-light.webp" darkSrc="/community-dark.webp" alt="2024 Raporu" />
+      ),
+      date: new Date('2024-05-01'),
+      title: 'Topluluk İlişkileri',
+      description:
+        'Çeşitli etkinlikler ve girişimler aracılığıyla topluluğumuzla etkileşimde bulunduk. Geri vermek konusunda kararlıyız.',
+      footer: () => <Button className="mt-auto">Katılın</Button>,
+    },
+    {
+      component: () => (
+        <Image
+          lightSrc="/partnership-light.webp"
+          darkSrc="/partnership-dark.webp"
+          alt="2024 Raporu"
+        />
+      ),
+      date: new Date('2024-06-01'),
+      title: 'Yeni Ortaklıklar',
+      description:
+        'Değerlerimizi paylaşan organizasyonlarla yeni ortaklıklar kurduk. Birlikte büyük işler başaracağımıza inanıyoruz.',
+      footer: () => <Button className="mt-auto">Ortaklıkları Keşfet</Button>,
     },
   ],
 };

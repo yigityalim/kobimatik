@@ -16,7 +16,7 @@ import { ThemeButton } from '@/components/theme-button';
 
 export function MarketingHeader() {
   return (
-    <header className="dark:border-b-offgray-800 bg-nav-color border-b-accent-blue/20 fixed inset-x-0 top-0 z-2 flex h-[57px] w-full items-center justify-between border-b px-6 py-2 backdrop-blur-sm md:gap-x-4">
+    <header className="dark:border-b-offgray-800 bg-nav-color border-b-accent-blue/20 fixed inset-x-0 top-0 z-20 flex h-[57px] w-full items-center justify-between border-b px-6 py-2 backdrop-blur-sm md:gap-x-4">
       <Link href="/" className="font-bold">
         ACME
       </Link>

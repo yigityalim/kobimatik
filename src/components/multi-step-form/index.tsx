@@ -54,7 +54,7 @@ export function MultiStepForm<T extends z.ZodObject<any>>({
     <FormProvider {...methods}>
       <form
         onSubmit={methods.handleSubmit((data) => handleFormSubmit({ ...collectedData, ...data }))}
-        className="space-y-2"
+        className="space-y-4"
       >
         <ProgressBar
           steps={steps}
@@ -69,6 +69,7 @@ export function MultiStepForm<T extends z.ZodObject<any>>({
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -50 }}
             transition={{ duration: 0.3 }}
+            className="space-y-4"
           >
             {steps[currentStep].fields.map(renderField)}
           </motion.div>
@@ -91,4 +92,3 @@ export function MultiStepForm<T extends z.ZodObject<any>>({
     </FormProvider>
   );
 }
-

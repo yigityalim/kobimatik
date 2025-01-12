@@ -137,6 +137,11 @@
     }
 }
 
+::selection {
+    color: #201e13;
+    background-color: #eceadf
+}
+
 *:focus {
     outline: 2px solid var(--color-accent-blue);
     outline-offset: 2px;
@@ -150,8 +155,16 @@
     --color-background: #121417;
     --color-foreground: #f6f4ef;
     --color-nav-color: #15171bf2;
-    --sh-default: 5px 5px 0 #3d7df514;
+    --sh-default: 5px 5px 0 #3d7df51a,-5px -5px 0 #3a7df826;
     --sh-alt: 5px 5px 0 #3d7df514;
+}
+
+.sh-default {
+    box-shadow: var(--sh-default)
+}
+
+.sh-alt {
+    box-shadow: var(--sh-alt)
 }
 
 .square-gradient-bg {
