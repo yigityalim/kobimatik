@@ -12,10 +12,10 @@ import {
 import { useEventListener } from 'usehooks-ts';
 import { recapOptions } from '@/app/[locale]/(marketing)/recap/config';
 import { cn } from '@/lib/utils';
-import { format, isEqual } from 'date-fns';
+import { format } from 'date-fns';
 import { tr } from 'date-fns/locale';
 
-export function Client({ year, locale }: Readonly<{ year: string; locale: string }>) {
+export function Client(/*{ year, locale }: Readonly<{ year: string; locale: string }>*/) {
   const [api, setApi] = React.useState<CarouselApi>();
   const [current, setCurrent] = React.useState(0);
 
@@ -93,7 +93,7 @@ export function Client({ year, locale }: Readonly<{ year: string; locale: string
           <div className="flex w-fit items-center justify-center gap-x-2">
             {Array.from({ length: recapOptions.recaps.length }).map((_, index) => (
               <span
-                key={index}
+                key={recapOptions.recaps[index].title}
                 className={cn(
                   'relative z-2 size-2 rounded-full',
                   index === current - 1
@@ -114,7 +114,7 @@ export function Client({ year, locale }: Readonly<{ year: string; locale: string
               {Array.from({ length: recapOptions.recaps.length }).map((_, index) => (
                 <button
                   type="button"
-                  key={index}
+                  key={recapOptions.recaps[index].title}
                   onClick={() => api?.scrollTo(index)}
                   className={cn(
                     'relative z-2 size-2 rounded-full',

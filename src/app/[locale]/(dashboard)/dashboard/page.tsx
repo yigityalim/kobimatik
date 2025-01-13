@@ -4,6 +4,7 @@ import { unauthorized } from 'next/navigation';
 export default async function DashboardPage() {
   const session = await authClient.getSession();
 
+  // TEST
   if (!session.data) unauthorized();
 
   return (

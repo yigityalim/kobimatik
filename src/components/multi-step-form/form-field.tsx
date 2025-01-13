@@ -3,7 +3,7 @@ import { useFormContext } from 'react-hook-form';
 import { Input } from '@/components/ui/input';
 import { FormData } from '@/lib/schemas';
 import { useScopedI18n } from '@/locales/client';
-import { Locale } from '@/locales/server';
+import type { Locale } from '@/locales/server';
 
 interface FormFieldProps {
   name: string; //keyof FormData;
@@ -32,20 +32,24 @@ export const FormField: React.FC<FormFieldProps> = ({
         htmlFor={name}
         className="text-offgray-700 dark:text-offgray-300 font-lora block text-sm font-medium"
       >
-        {t(label)}
+        {t(label as keyof Locale['pages']['report']['create']['fields'])}
       </label>
       <div className="relative">
         <span className="absolute inset-y-0 left-0 flex items-center pl-2">{icon}</span>
         <Input
-          {...register(name)}
+          {...register(name as keyof FormData)}
           id={name}
           type={type}
-          placeholder={placeholderT(placeholder ?? 'unknown')}
+          placeholder={placeholderT(
+            (placeholder ?? 'unknown') as keyof Locale['pages']['report']['create']['placeholders'],
+          )}
           className="pl-10"
         />
       </div>
-      {errors[name] && (
-        <p className="mt-1 text-sm text-red-500">{(errors[name] as any)?.message}</p>
+      {errors[name as keyof FormData] && (
+        <p className="mt-1 text-sm text-red-500">
+          {(errors[name as keyof FormData] as any).message}
+        </p>
       )}
     </div>
   );

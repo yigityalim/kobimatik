@@ -159,6 +159,10 @@
     --sh-alt: 5px 5px 0 #3d7df514;
 }
 
+.icon-base {
+    @apply text-accent-blue dark:text-blue-400 size-[14px] shrink-0
+}
+
 .sh-default {
     box-shadow: var(--sh-default)
 }
@@ -177,6 +181,15 @@
     --tw-gradient-from: color-mix(in oklab, var(--color-blue-200) 5%, transparent);
     --tw-gradient-stops: var(--tw-gradient-via-stops, var(--tw-gradient-position) var(--tw-gradient-from) var(--tw-gradient-from-position), var(--tw-gradient-to) var(--tw-gradient-to-position));
     --tw-gradient-to: color-mix(in oklab, var(--color-blue-50) 10%, transparent);
+}
+
+.dark .square-gradient-bg {
+    border-color:
+            color-mix(in oklab, var(--color-blue-400) 20%, transparent);
+    --tw-gradient-from:
+            color-mix(in oklab, var(--color-blue-400) 5%, transparent);
+    --tw-gradient-stops: var(--tw-gradient-via-stops, var(--tw-gradient-position) var(--tw-gradient-from) var(--tw-gradient-from-position), var(--tw-gradient-to) var(--tw-gradient-to-position));
+    --tw-gradient-to: transparent;
 }
 
 .pattern-bg-white {

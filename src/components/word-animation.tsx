@@ -33,29 +33,32 @@ function useWordCycle(words: string[], interval: number) {
     return words[index];
 }
 
-export function WordAnimation({ words = defaultWords, className }: { words?: string[], className?: string }) {
-    const word = useWordCycle(words, 3000);
+export function WordAnimation({
+  words = defaultWords,
+  className,
+}: Readonly<{ words?: string[]; className?: string }>) {
+  const word = useWordCycle(words, 3000);
 
-    return (
-        <AnimatePresence mode="wait">
-            <motion.div key={word} className={cn("text-primary inline-block", className)}>
-                {word?.split("").map((char, index) => (
-                    <motion.span
-                        key={`${word}-${char}-${index.toString()}`}
-                        initial={{ y: 10, opacity: 0 }}
-                        animate={{ y: 0, opacity: 1 }}
-                        exit={{ y: -10, opacity: 0 }}
-                        transition={{
-                            duration: 0.15,
-                            delay: index * 0.015,
-                            ease: "easeOut",
-                        }}
-                        style={{ display: "inline-block", whiteSpace: "pre" }}
-                    >
-                        {char}
-                    </motion.span>
-                ))}
-            </motion.div>
-        </AnimatePresence>
-    );
+  return (
+    <AnimatePresence mode="wait">
+      <motion.div key={word} className={cn('text-primary inline-block', className)}>
+        {word?.split('').map((char, index) => (
+          <motion.span
+            key={`${word}-${char}-${index.toString()}`}
+            initial={{ y: 10, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: -10, opacity: 0 }}
+            transition={{
+              duration: 0.15,
+              delay: index * 0.015,
+              ease: 'easeOut',
+            }}
+            style={{ display: 'inline-block', whiteSpace: 'pre' }}
+          >
+            {char}
+          </motion.span>
+        ))}
+      </motion.div>
+    </AnimatePresence>
+  );
 }

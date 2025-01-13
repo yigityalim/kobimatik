@@ -5,5 +5,5 @@ export default async function RecapPage({
   params,
 }: Readonly<{ params: Promise<{ locale: string; year: string }> }>) {
   const { locale, year } = await params;
-  return <Client year={year} locale={locale} />;
+  return <Client />;
 }

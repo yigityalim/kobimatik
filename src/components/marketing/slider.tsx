@@ -46,7 +46,7 @@ export function Slider({ slides }: Readonly<SliderProps>) {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center gap-2 p-4 md:hidden">
+    <div className="flex flex-col items-center justify-center gap-2 p-6 md:hidden">
       <div
         ref={sliderRef}
         className="relative flex w-full snap-x snap-mandatory space-x-4 overflow-x-auto overscroll-x-contain scroll-smooth [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
@@ -135,7 +135,11 @@ interface SliderNavigationProps {
   onNavigate: (index: number) => void;
 }
 
-export function SliderNavigation({ totalSlides, activeIndex, onNavigate }: SliderNavigationProps) {
+export function SliderNavigation({
+  totalSlides,
+  activeIndex,
+  onNavigate,
+}: Readonly<SliderNavigationProps>) {
   return (
     <div className="mt-4 mb-2 flex justify-center gap-3 md:hidden">
       {Array.from({ length: totalSlides }, (_, i) => (

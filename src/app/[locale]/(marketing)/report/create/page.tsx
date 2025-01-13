@@ -9,7 +9,7 @@ export default function Page() {
   return (
     <PageLayout pageHeading="report.create.title" pageDescription="report.create.description">
       <MultiStepForm
-        steps={create_report_step}
+        steps={create_report_step as any}
         schemas={stepSchemas}
         onSubmit={(data) => {
           console.log('data', data);

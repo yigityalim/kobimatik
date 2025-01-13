@@ -4,6 +4,7 @@ import { forbidden } from 'next/navigation';
 export default async function DashboardPage() {
   const session = await authClient.getSession();
 
+  // TEST
   if (!session.data) forbidden();
 
   return (

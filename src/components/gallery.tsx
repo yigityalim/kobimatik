@@ -3,6 +3,7 @@ import type { SlideContent } from '@/lib/slides';
 import { VideoPlayer } from '@/components/video-player';
 import { Fragment } from 'react';
 import { Slider } from '@/components/marketing/slider';
+import { useScopedI18n } from '@/locales/client';
 
 export interface GalleryProps {
   slides: SlideContent[];
@@ -10,13 +11,22 @@ export interface GalleryProps {
   title?: string;
   description?: string;
   className?: string;
+  footer?: React.ReactNode;
 }
 
-export function Gallery({ slides, type, title, description, className }: Readonly<GalleryProps>) {
+export function Gallery({
+  slides,
+  type,
+  title,
+  description,
+  className,
+  footer,
+}: Readonly<GalleryProps>) {
+  const t = useScopedI18n('gallery');
   if (type === 'top-controls') {
     return (
       <>
-        <div className="hidden w-full max-w-full p-4 md:block">
+        <div className="hidden w-full max-w-full p-6 md:block">
           <TabGroup>
             <TabList className="m-0 mb-8 flex w-full flex-wrap items-center justify-center gap-2 sm:mb-4 lg:mx-auto lg:w-[70%] xl:m-0 xl:w-full">
               {slides.map(({ title, icon: Icon }) => (
@@ -42,6 +52,7 @@ export function Gallery({ slides, type, title, description, className }: Readonl
           </TabGroup>
         </div>
         <Slider slides={slides} />
+        {footer}
       </>
     );
   }
@@ -49,7 +60,7 @@ export function Gallery({ slides, type, title, description, className }: Readonl
   if (type === 'left-controls') {
     return (
       <>
-        <TabGroup className="hidden w-full grid-cols-1 gap-8 p-4 md:grid xl:grid-cols-2 xl:gap-4">
+        <TabGroup className="hidden w-full grid-cols-1 gap-8 p-6 md:grid xl:grid-cols-2 xl:gap-4">
           <TabList className="flex flex-col gap-6 xl:max-w-lg">
             {title && (
               <hgroup className="">
@@ -85,9 +96,10 @@ export function Gallery({ slides, type, title, description, className }: Readonl
           </TabPanels>
         </TabGroup>
         <p className="w-full px-4 pb-4 text-center text-sm tracking-tight italic opacity-80 xl:max-w-lg xl:text-left">
-          And a lot more...
+          {`${t('andMore')}...`}
         </p>
         <Slider slides={slides} />
+        {footer}
       </>
     );
   }

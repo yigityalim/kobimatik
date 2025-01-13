@@ -3,13 +3,13 @@
 import { useRef, useEffect } from 'react';
 
 export function Authors() {
-    const ref = useRef<boolean | undefined>(undefined);
+  const ref = useRef<boolean | undefined>(undefined);
 
-    useEffect(() => {
-        if (!ref.current) {
-            console.log(`
+  useEffect(() => {
+    if (!ref.current) {
+      console.log(`
         
-Proje ismi: KobiMatik
+Proje ismi: ACME
 
 -------------------------------------
 
@@ -30,9 +30,9 @@ Site Linkleri:
 2. https://www.berkaypolat.com.tr
 
 `);
-            ref.current = true;
-        }
-    }, []);
+      ref.current = true;
+    }
+  }, []);
 
-    return null;
+  return null;
 }

@@ -2,19 +2,14 @@ import type React from 'react';
 import { Button } from '@/components/ui/button';
 import { Image } from '@/components/image';
 import {
-  ArrowDown,
   ArrowRight,
   Atom,
   Handshake,
-  ListRestart,
   Presentation,
   Radio,
   ShoppingBasket,
   Users,
 } from 'lucide-react';
-import Link from 'next/link';
-import { format } from 'date-fns';
-import { tr } from 'date-fns/locale';
 import { RecapGrid } from '@/components/recap-grid';
 
 export type RecapOptions = {

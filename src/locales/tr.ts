@@ -34,6 +34,18 @@ export default {
     cookiePolicy: 'Çerez Politikası',
     soon: 'Yakında',
     active: 'Aktif',
+    status: {
+      title: 'Durum',
+      isLoading: 'Yükleniyor',
+      error: 'Hata',
+      operational: 'Operasyonel',
+      partialOutage: 'Kısmi Kesinti',
+      majorOutage: 'Büyük Kesinti',
+      // add more states
+    },
+  },
+  gallery: {
+    andMore: 'Ve daha fazlası',
   },
   button: {
     submit: 'Gönder',
@@ -42,13 +54,73 @@ export default {
     finish: 'Bitir',
     preview: 'Önizleme',
   },
+  banner: {
+    link: '{year} Özetini Görüntüle!',
+  },
   coming_soon: {
     title: 'Çok Yakında!',
     description:
       "Bu sayfa şu anda yapım aşamasında. Güncellemeleri takip etmek için bizi Twitter'dan (@{name}) takip edin.",
     cta: 'iletişime geçin',
+    signOut: 'Çıkış Yap',
+  },
+  accept_terms: {
+    content: "'Giriş Yap' butonuna tıklayarak, {terms} ve {privacy} kabul etmiş olursunuz.",
+    terms_of_service: 'Kullanım Koşulları',
+    privacy_policy: 'Gizlilik Politikası',
   },
   pages: {
+    unauthorized: {
+      heading: 'İzinsiz Erişim',
+      description:
+        'Aradığınız sayfa oturum erişimi gerektiriyor. Lütfen tekrar deneyin. Eğer bir hata olduğunu düşünüyorsanız {support} ile iletişime geçebilirsiniz.',
+      supportTeam: 'Destek Ekibi',
+      signIn: 'Giriş Yap',
+      home: 'Anasayfaya Dön',
+    },
+    notFound: {
+      heading: 'Sayfa Bulunamadı',
+      description:
+        'Aradığınız sayfa bulunamadı. Lütfen tekrar deneyin. Eğer bir hata olduğunu düşünüyorsanız {support} ile iletişime geçebilirsiniz.',
+      supportTeam: 'Destek Ekibi',
+      home: 'Anasayfaya Dön',
+    },
+    forbidden: {
+      heading: 'İzinsiz Yetki',
+      description:
+        'Aradığınız sayfaya erişim izniniz bulunmamaktadır. Lütfen tekrar deneyin. Eğer bir hata olduğunu düşünüyorsanız {support} ile iletişime geçebilirsiniz.',
+      supportTeam: 'Destek Ekibi',
+      signIn: 'Giriş Yap',
+      home: 'Anasayfaya Dön',
+    },
+    auth: {
+      signIn: {
+        title: 'Giriş Yap',
+        description: 'Hesabınıza giriş yapın',
+        email: 'E-posta',
+        password: 'Şifre',
+        rememberMe: 'Beni Hatırla',
+        forgotPassword: 'Şifremi Unuttum',
+        signIn: 'Giriş Yap',
+        signUp: 'Kayıt Ol',
+      },
+      signUp: {
+        title: 'Kayıt Ol',
+        description: 'Hesap oluşturun',
+        email: 'E-posta',
+        password: 'Şifre',
+        confirmPassword: 'Şifreyi Onayla',
+        signUp: 'Kayıt Ol',
+        signIn: 'Giriş Yap',
+      },
+      forgotPassword: {
+        title: 'Şifremi Unuttum',
+        description: 'Şifrenizi sıfırlayın',
+        email: 'E-posta',
+        sendResetLink: 'Sıfırlama Bağlantısı Gönder',
+        signIn: 'Giriş Yap',
+      },
+    },
     home: {
       title: 'Anasayfa',
       description: 'Anasayfa açıklaması',

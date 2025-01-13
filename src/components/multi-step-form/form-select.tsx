@@ -6,8 +6,9 @@ import { Drawer } from 'vaul';
 import { ChevronDown } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
+import type { Locale } from '@/locales/server';
 
-export function FormSelect({ name, label, options, icon }: Field) {
+export function FormSelect({ name, label, options, icon }: Readonly<Field>) {
   const [open, setOpen] = React.useState(false);
   const t = useScopedI18n('pages.report.create.fields');
   const {
@@ -17,7 +18,6 @@ export function FormSelect({ name, label, options, icon }: Field) {
   } = useFormContext<FormData>();
 
   const selectedValue = watch(name);
-  console.log(selectedValue);
   const selectedOption = options?.find(
     (option) => option.value === (selectedValue as unknown as string),
   );
@@ -33,7 +33,7 @@ export function FormSelect({ name, label, options, icon }: Field) {
         htmlFor={name}
         className="text-offgray-700 font-lora dark:text-offgray-300 block text-sm font-medium"
       >
-        {t(label)}
+        {t(label as keyof Locale['pages']['report']['create']['fields'])}
       </label>
       <Drawer.Root open={open} onOpenChange={setOpen}>
         <Drawer.Trigger
@@ -62,7 +62,7 @@ export function FormSelect({ name, label, options, icon }: Field) {
             <div className="bg-background flex-1 rounded-t-[10px] p-4 pb-16">
               <div className="mx-auto max-w-md">
                 <Drawer.Title className="text-accent-blue font-lora mb-4 text-xl font-medium dark:text-blue-300">
-                  {t(label)}
+                  {t(label as keyof Locale['pages']['report']['create']['fields'])}
                 </Drawer.Title>
                 <div className="h-1/2 space-y-4 overflow-y-scroll">
                   {options?.map((option) => (

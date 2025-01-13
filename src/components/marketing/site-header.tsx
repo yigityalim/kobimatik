@@ -252,7 +252,7 @@ function MobileNav() {
                     className="dark:text-offgray-50 hover:bg-offgray-100/50 dark:hover:bg-offgray-500/10 flex h-8 w-full items-center justify-start gap-3 gap-x-2 rounded-sm border border-transparent px-2.5 text-sm tracking-tight text-nowrap text-black transition-colors duration-75 select-none disabled:cursor-not-allowed disabled:opacity-50"
                   >
                     <Icon className="size-[14px] text-blue-400" />
-                    {t(item.name)}
+                    {t(item.name as any)} {/* FIXME: Remove any */}
                     {/*<ChevronRight className="ml-auto size-[14px] text-blue-400" />*/}
                   </span>
                 );
@@ -271,7 +271,7 @@ function MobileNav() {
                   )}
                 >
                   <Icon className="size-[14px] text-blue-400" />
-                  {t(item.name as any, { year: new Date().getFullYear() - 1 })}{' '}
+                  {/*t(item.name as any, { year: new Date().getFullYear() - 1 }) */} {item.name}
                   {/* FIXME: Remove any */}
                   {item.primary && (
                     <ArrowRight className="animate-arrow-transform size-[14px] text-blue-400 dark:text-white" />

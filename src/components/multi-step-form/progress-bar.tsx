@@ -10,7 +10,7 @@ interface ProgressBarProps {
   progress: number;
 }
 
-export function ProgressBar({ steps, currentStep, setCurrentStep, progress }: ProgressBarProps) {
+export function ProgressBar({ steps, currentStep, setCurrentStep, progress }: Readonly<ProgressBarProps>) {
   return (
     <div className="relative mt-4 flex w-full flex-col gap-2">
       <motion.div
@@ -18,7 +18,7 @@ export function ProgressBar({ steps, currentStep, setCurrentStep, progress }: Pr
           staggerChildren: 0.1,
         }}
         className={cn(
-          'flex gap-x-2 flex-row w-full items-center',
+          'flex w-full flex-row items-center gap-x-2',
           steps.length < 4 ? 'justify-start' : 'justify-between',
         )}
       >

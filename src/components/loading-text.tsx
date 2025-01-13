@@ -7,27 +7,27 @@ interface LoadingTextProps extends HTMLAttributes<HTMLSpanElement> {
     duration?: number;
 }
 
-export function LoadingText({ text, duration = 800, className, ...props }: LoadingTextProps) {
-    const [dots, setDots] = useState<string>('');
+export function LoadingText({ text, duration = 800, className, ...props }: Readonly<LoadingTextProps>) {
+  const [dots, setDots] = useState<string>('');
 
-    useEffect(() => {
-        const interval = setInterval(() => {
-            setDots((prevDots) => (prevDots.length >= 3 ? '' : prevDots + '.'));
-        }, duration / 3);
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setDots((prevDots) => (prevDots.length >= 3 ? '' : prevDots + '.'));
+    }, duration / 3);
 
-        return () => clearInterval(interval);
-    }, [duration]);
+    return () => clearInterval(interval);
+  }, [duration]);
 
-    const loadingStyle = {
-        display: 'inline-block',
-        minWidth: '3em',
-        textAlign: 'left',
-    } satisfies CSSProperties
+  const loadingStyle = {
+    display: 'inline-block',
+    minWidth: '3em',
+    textAlign: 'left',
+  } satisfies CSSProperties;
 
-    return (
-        <span className={cn(className)} {...props}>
-            {text}
-            <span style={loadingStyle}>{dots}</span>
-        </span>
-    );
+  return (
+    <span className={cn(className)} {...props}>
+      {text}
+      <span style={loadingStyle}>{dots}</span>
+    </span>
+  );
 }
