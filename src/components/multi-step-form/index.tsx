@@ -11,6 +11,7 @@ import { FormSelect } from './form-select';
 import { ProgressBar } from '@/components/multi-step-form/progress-bar';
 import { NavigationButtons } from '@/components/multi-step-form/navigation-buttons';
 import { PreviousDataDrawer } from '@/components/multi-step-form/previous-data-drawer';
+import { DynamicTable } from '@/components/multi-step-form/dynamic-table';
 
 export function MultiStepForm<T extends z.ZodObject<any>>({
   steps,
@@ -44,10 +45,14 @@ export function MultiStepForm<T extends z.ZodObject<any>>({
   };
 
   const renderField = (field: Field) => {
-    if (field.type === 'select') {
-      return <FormSelect key={field.name} {...field} />;
+    switch (field.type) {
+      case 'select':
+        return <FormSelect key={field.name} {...field} />;
+      case 'dynamicTable':
+        return <DynamicTable key={field.name} {...field} />;
+      default:
+        return <FormField key={field.name} {...field} />;
     }
-    return <FormField key={field.name} {...field} />;
   };
 
   return (

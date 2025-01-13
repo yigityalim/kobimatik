@@ -16,6 +16,8 @@ const buttonVariants = cva(
         ghost: 'border-transparent hover:bg-offgray-100/50 dark:hover:bg-offgray-500/10',
         success:
           'bg-blue-500 text-white border-transparent dark:bg-accent-blue dark:[box-shadow:hsl(219,_93%,_30%)_0_-2px_0_0_inset,_hsl(0,_0%,_0%,_0.4)_0_1px_3px_0]',
+        destructive:
+          'bg-red-500 text-white border-transparent dark:bg-red-500 dark:[box-shadow:hsl(0,_93%,_30%)_0_-2px_0_0_inset,_hsl(0,_93%,_95%)_0_-2px_0_0_inset] hover:bg-red-600 active:[box-shadow:none] hover:[box-shadow:none] dark:hover:[box-shadow:none] [box-shadow:hsl(0,_93%,_30%)_0_-2px_0_0_inset,_hsl(0,_93%,_95%)_0_1px_3px_0]',
       },
       size: {
         default: 'h-9 px-3',

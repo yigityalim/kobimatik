@@ -94,7 +94,7 @@ export function Testimonials({
             title={<Icons.AnthropicLogo />}
             quote={testimonials.best.description}
           />
-          <div className="grid grid-cols-1 lg:grid-cols-2">
+          <div className="grid grid-cols-1 px-4 lg:grid-cols-2">
             {testimonials.others.map((o) => (
               <div
                 key={o.name}

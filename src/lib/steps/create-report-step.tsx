@@ -1,5 +1,14 @@
 import React from 'react';
-import { Briefcase, Lightbulb, PieChart, Search, Target, TrendingUp, Users } from 'lucide-react';
+import {
+  Briefcase,
+  Lightbulb,
+  PieChart,
+  Search,
+  Table,
+  Target,
+  TrendingUp,
+  Users,
+} from 'lucide-react';
 import { Locale } from '@/locales/server';
 
 export type FieldBase = {
@@ -41,15 +50,40 @@ export const create_report_step = [
       },
       {
         name: 'userType',
-        label: 'userType', // Kullanıcı Tipi
+        label: 'userType.value', // Kullanıcı Tipi
         icon: <Search className="size-4 text-gray-400" />,
         type: 'select',
-        placeholder: 'userType',
+        placeholder: 'userType.value',
         options: [
           { value: '1', label: 'userType.advisor', default: true },
           { value: '2', label: 'userType.entrepreneur' },
           { value: '3', label: 'userType.investor' },
           { value: '4', label: 'userType.other' },
+        ],
+      },
+      {
+        name: 'businessType',
+        label: 'businessType.value',
+        icon: <Search className="size-4 text-gray-400" />,
+        type: 'select',
+        placeholder: 'businessType.value',
+        options: [
+          { value: '1', label: 'businessType.real', default: true },
+          { value: '2', label: 'businessType.legal' },
+        ],
+      },
+      {
+        name: 'ideaStatus',
+        label: 'ideaStatus.value',
+        icon: <Search className="size-4 text-gray-400" />,
+        type: 'select',
+        placeholder: 'ideaStatus.value',
+        options: [
+          { value: '1', label: 'ideaStatus.raw' }, // Ham
+          { value: '2', label: 'ideaStatus.conceptualized' }, // Kurgulanmış
+          { value: '3', label: 'ideaStatus.modeled' }, // Modelleştirilmiş
+          { value: '4', label: 'ideaStatus.ready' }, // Hazır
+          { value: '5', label: 'ideaStatus.validityPeriod' }, // Geçerlilik Süresi
         ],
       },
     ],
@@ -58,10 +92,14 @@ export const create_report_step = [
     title: 'startupDetails', // Girişim Detayları
     fields: [
       {
-        name: 'industry',
-        label: 'industry', // Sektör
-        icon: <Briefcase className="size-4 text-gray-400" />,
-        placeholder: 'industry',
+        name: 'Bina-İnşaat Gideri',
+        label: 'Bina-İnşaat Gideri', // Girişim Adı
+        type: 'select',
+        placeholder: 'Giriniz:',
+        options: [
+          { label: 'Tutar', type: 'number', value: 0 },
+          { label: 'Yüzde', type: 'percent', value: 0 },
+        ],
       },
       {
         name: 'foundingYear',
@@ -69,6 +107,51 @@ export const create_report_step = [
         icon: <TrendingUp className="size-4 text-gray-400" />,
         type: 'number',
         placeholder: 'foundingYear',
+      },
+    ],
+  },
+  {
+    title: 'financialProjections',
+    fields: [
+      // ... other fields ...
+      {
+        name: 'yearlyFinancials',
+        label: 'yearlyFinancials',
+        icon: <Table className="size-4 text-gray-400" />,
+        type: 'dynamicTable',
+        columns: [
+          {
+            name: 'year',
+            label: 'Year',
+            type: 'number',
+          },
+          {
+            name: 'revenue',
+            label: 'Revenue',
+            type: 'number',
+          },
+          {
+            name: 'expenses',
+            label: 'Expenses',
+            type: 'number',
+          },
+          {
+            name: 'profitMargin',
+            label: 'Profit Margin',
+            type: 'percent',
+          },
+          {
+            name: 'category',
+            label: 'Category',
+            type: 'select',
+            options: [
+              { value: 'product', label: 'Product' },
+              { value: 'service', label: 'Service' },
+              { value: 'mixed', label: 'Mixed' },
+            ],
+          },
+        ],
+        addButtonLabel: 'Add Year',
       },
     ],
   },

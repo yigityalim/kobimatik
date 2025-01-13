@@ -3,13 +3,13 @@ import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { Step } from '@/types/form-types';
 import { useScopedI18n } from '@/locales/client';
+import { useFormContext } from 'react-hook-form';
 
 interface PreviousDataDrawerProps {
   steps: Step[];
   currentStep: number;
   setCurrentStep: (step: number) => void;
   collectedData: any;
-  tPath?: string;
 }
 
 export function PreviousDataDrawer({
@@ -17,9 +17,8 @@ export function PreviousDataDrawer({
   currentStep,
   setCurrentStep,
   collectedData,
-  tPath,
 }: Readonly<PreviousDataDrawerProps>) {
-  const t = useScopedI18n('pages.report.create.fields');
+  const t = useScopedI18n('pages.report.create.steps');
   return (
     <Drawer.Root>
       <Drawer.Trigger asChild>
@@ -47,7 +46,11 @@ export function PreviousDataDrawer({
                   <Drawer.Close asChild key={i}>
                     <Button
                       type="button"
-                      onClick={() => setCurrentStep(i)}
+                      onClick={() => {
+                        if (i > currentStep) return;
+                        setCurrentStep(i);
+                      }}
+                      disabled={i > currentStep}
                       className={cn(
                         'w-full text-left',
                         i === currentStep
@@ -55,7 +58,7 @@ export function PreviousDataDrawer({
                           : 'dark:bg-offgray-950 text-whit bg-gray-300',
                       )}
                     >
-                      {t(step.title as any)}
+                      {t(step.title)}
                     </Button>
                   </Drawer.Close>
                 ))}

@@ -142,15 +142,6 @@
     background-color: #eceadf
 }
 
-*:focus {
-    outline: 2px solid var(--color-accent-blue);
-    outline-offset: 2px;
-}
-
-*:focus:not(:focus-visible) {
-    outline: none;
-}
-
 .dark {
     --color-background: #121417;
     --color-foreground: #f6f4ef;
@@ -169,6 +160,14 @@
 
 .sh-alt {
     box-shadow: var(--sh-alt)
+}
+
+input:focus-within {
+    outline: 3px solid #094ece80;
+}
+input:focus {
+    outline-offset: 2px;
+    outline: 2px solid #0000;
 }
 
 .square-gradient-bg {
@@ -212,15 +211,6 @@
 .pattern-diagonal-lines {
     opacity: var(--pattern-opacity,.4);
     background: var(--pattern-bg-color, transparent) repeating-linear-gradient(45deg, var(--pattern-color), var(--pattern-color) calc(var(--pattern-size, 40px) * .2), var(--pattern-bg-color, transparent) calc(var(--pattern-size, 40px) * .2), var(--pattern-bg-color) var(--pattern-size, 40px));
-}
-
-input:focus-within {
-    outline: 3px solid #094ece80
-}
-
-input:focus {
-    outline-offset: 2px;
-    outline: 2px solid #0000
 }
 
 @keyframes hideToast {

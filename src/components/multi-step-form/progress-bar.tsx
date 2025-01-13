@@ -1,7 +1,8 @@
 import { motion } from 'motion/react';
 import { cn } from '@/lib/utils';
 import NumberFlow from '@number-flow/react';
-import { Step } from '@/types/form-types';
+import { FormData, Step } from '@/types/form-types';
+import { useFormContext } from 'react-hook-form';
 
 interface ProgressBarProps {
   steps: Step[];
@@ -10,7 +11,12 @@ interface ProgressBarProps {
   progress: number;
 }
 
-export function ProgressBar({ steps, currentStep, setCurrentStep, progress }: Readonly<ProgressBarProps>) {
+export function ProgressBar({
+  steps,
+  currentStep,
+  setCurrentStep,
+  progress,
+}: Readonly<ProgressBarProps>) {
   return (
     <div className="relative mt-4 flex w-full flex-col gap-2">
       <motion.div
@@ -27,7 +33,9 @@ export function ProgressBar({ steps, currentStep, setCurrentStep, progress }: Re
             key={i}
             whileHover={i + 1 === currentStep ? {} : { scale: 1.1 }}
             whileTap={i + 1 === currentStep ? {} : { scale: 0.9 }}
-            onClick={() => setCurrentStep(i)}
+            onClick={() => {
+              setCurrentStep(i);
+            }}
             className={cn(
               'flex size-6 cursor-pointer items-center justify-center rounded-md text-[10px] font-bold transition-colors duration-300 select-none md:size-7 md:text-sm',
               steps.length < 4 ? 'rounded-md' : 'rounded-full',
@@ -62,4 +70,3 @@ export function ProgressBar({ steps, currentStep, setCurrentStep, progress }: Re
     </div>
   );
 }
-

@@ -57,7 +57,7 @@ export default async function RootLayout({
 }: Readonly<React.PropsWithChildren<{ params: Promise<{ locale: string }> }>>) {
   const { locale } = await params;
   return (
-    <html lang={locale} className="" suppressHydrationWarning>
+    <html lang={locale} suppressHydrationWarning>
       <body
         className={cn(
           'bg-cream-100/20 text-offgray dark:text-offgray-300 relative min-h-screen w-screen overflow-x-hidden dark:bg-[hsl(218,_13%,_8%)]',
@@ -68,12 +68,7 @@ export default async function RootLayout({
         <Providers locale={locale}>
           <div className="h-full w-full">{children}</div>
           <Suspense fallback={null}>
-            <div
-              style={{
-                backgroundImage: "url('/noise.0e24d0e5.png')",
-              }}
-              className="pointer-events-none absolute inset-0 -z-1 min-h-dvh bg-[size:180px] bg-repeat opacity-[0.035] dark:opacity-[0.020]"
-            />
+            <div className="pointer-events-none absolute inset-0 -z-1 min-h-dvh bg-[url('/noise.0e24d0e5.png')] bg-[size:180px] bg-repeat opacity-[0.035] dark:opacity-[0.020]" />
           </Suspense>
         </Providers>
         <Authors key="authors" />

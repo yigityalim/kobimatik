@@ -15,8 +15,8 @@ export default async function NotFound() {
           {t('heading')}
         </h1>
         <div className="relative">
-          <Icons.Light401 />
-          <Icons.Dark401 />
+          <Icons.Light404 />
+          <Icons.Dark404 />
           <Image
             alt="Grid illustration"
             loading="lazy"
