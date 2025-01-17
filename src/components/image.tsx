@@ -2,12 +2,14 @@ import NextImage, { ImageProps as NextImageProps } from 'next/image';
 import { cn } from '@/lib/utils';
 
 export type ImageProps = Omit<NextImageProps, 'src'> & {
+  containerClassName?: string;
   removeStyles?: boolean;
   lightSrc: string;
   darkSrc: string;
 };
 
 export function Image({
+  containerClassName,
   lightSrc,
   darkSrc,
   removeStyles,
@@ -21,13 +23,14 @@ export function Image({
         removeStyles
           ? ''
           : 'default-border-color lg:min-h-[400px]" relative flex aspect-video h-auto w-full shrink-0 grow items-center justify-center overflow-clip border p-2 lg:max-h-[400px]',
+        containerClassName,
       )}
     >
       <NextImage
         className={cn(
           !removeStyles
             ? 'default-border-color hidden aspect-video size-full min-h-full border object-cover object-top dark:block'
-            : 'hidden dark:hidden',
+            : 'block dark:hidden',
           className,
         )}
         width={1920}

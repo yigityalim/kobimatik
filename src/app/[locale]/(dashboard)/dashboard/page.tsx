@@ -1,11 +1,7 @@
-import { authClient } from '@/lib/auth/client';
-import { unauthorized } from 'next/navigation';
+import { getSession } from '@/lib/session';
 
 export default async function DashboardPage() {
-  const session = await authClient.getSession();
-
-  // TEST
-  if (!session.data) unauthorized();
+  const data = await getSession();
 
   return (
     <div>

@@ -44,6 +44,7 @@ export interface Step {
 export type StepSchema = z.ZodObject<any>;
 
 export interface MultiStepFormProps<T extends z.ZodObject<any>> {
+  checkSession?: (step: number) => boolean;
   steps: Step[];
   schemas: T[];
   onSubmit: (data: z.infer<T>) => void | Promise<void>;

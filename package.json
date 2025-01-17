@@ -1,5 +1,5 @@
 {
-  "name": "@languine/web",
+  "name": "acme",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -17,6 +17,9 @@
   "dependencies": {
     "@headlessui/react": "^2.2.0",
     "@hookform/resolvers": "^3.10.0",
+    "@mdx-js/loader": "^3.1.0",
+    "@mdx-js/react": "^3.1.0",
+    "@next/mdx": "^15.1.4",
     "@number-flow/react": "^0.5.1",
     "@openpanel/nextjs": "^1.0.7",
     "@paralleldrive/cuid2": "^2.2.2",
@@ -43,6 +46,7 @@
     "@trpc/client": "^11.0.0-rc.688",
     "@trpc/react-query": "^11.0.0-rc.688",
     "@trpc/server": "^11.0.0-rc.688",
+    "@types/mdx": "^2.0.13",
     "bcryptjs": "^2.4.3",
     "better-auth": "^1.1.10",
     "better-sqlite3": "^11.7.2",
@@ -67,6 +71,7 @@
     "react-icons": "^5.4.0",
     "react-pdf": "^9.2.1",
     "recharts": "^2.15.0",
+    "remark-gfm": "^4.0.0",
     "resend": "^4.0.1",
     "server-only": "^0.0.1",
     "slugify": "^1.6.6",

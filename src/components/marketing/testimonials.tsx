@@ -27,6 +27,7 @@ type TestimonialsProps = {
     others: CustomerTestimonial[];
   };
   referenceLogos: ReferenceLogo[];
+  className?: string;
 };
 
 export function Testimonials({
@@ -34,9 +35,10 @@ export function Testimonials({
   description,
   testimonials,
   referenceLogos,
+  className,
 }: Readonly<TestimonialsProps>) {
   return (
-    <div className="relative px-6 py-8 sm:pt-20 sm:pb-24">
+    <div className={cn('relative px-4 py-8 sm:px-6 sm:pt-20 sm:pb-24', className)}>
       <div className="mx-auto flex w-full max-w-(--breakpoint-sm) flex-col items-center gap-5 md:max-w-[1200px]">
         <hgroup className="mx-auto flex w-full max-w-xl flex-col items-center gap-1">
           <h2 className="font-lora h2 text-accent-blue mb-2.5 scroll-mt-24 text-center font-medium text-pretty dark:text-blue-300">

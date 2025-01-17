@@ -1,6 +1,7 @@
 import { ArrowRight, Calendar } from 'lucide-react';
 import Link from 'next/link';
 import { getScopedI18n } from '@/locales/server';
+import { Noise } from '@/components/Noise';
 
 export async function Banner() {
   const t = await getScopedI18n('banner');
@@ -12,7 +13,7 @@ export async function Banner() {
       <Calendar className="size-3" />
       {t('link', { year: 2024 })}
       <ArrowRight className="animate-arrow-transform size-3" />
-      <div className="pointer-events-none absolute inset-0 [z-index:-1] bg-[url(/noise.0e24d0e5.png)] bg-[size:180px] bg-repeat opacity-[0.035] dark:opacity-[0.015]" />
+      <Noise />
     </Link>
   );
 }

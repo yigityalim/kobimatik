@@ -14,6 +14,7 @@ import { Mail, Lock } from 'lucide-react';
 import { LoadingText } from '@/components/loading-text';
 import { useScopedI18n } from '@/locales/client';
 import { AcceptTerms } from '@/components/accept-terms';
+import { authClient } from '@/lib/auth/client';
 
 export function SignInForm() {
   const t = useScopedI18n('pages.auth.signIn');
@@ -32,20 +33,32 @@ export function SignInForm() {
     resolver: zodResolver(signInSchema),
   });
 
-  const onSubmit = async (data: SignInInput) => {
+  const onSubmit = async (input: SignInInput) => {
     setServerError(null);
-    const formData = new FormData();
+
+    /*const formData = new FormData();
     formData.append('email', data.email);
-    formData.append('password', data.password);
+    formData.append('password', data.password);*/
 
-    const result = await signInAction(formData);
+    const { data, error } = await authClient.signIn.email(
+      {
+        email: input.email,
+        password: input.password,
+      },
+      {
+        onRequest: (ctx) => {
+          // loading ui
+        },
+        onSuccess: (ctx) => {
+          router.push('/dashboard');
+        },
+        onError: (ctx) => {
+          console.error(JSON.stringify(ctx.error));
+        },
+      },
+    );
 
-    if (result.error) {
-      console.log(result.error);
-      setServerError(result?.error);
-    } else if (result.success) {
-      router.push('/dashboard');
-    }
+    console.log(data);
   };
 
   return (

@@ -4,7 +4,7 @@ import { Gallery } from '@/components/gallery';
 import { homePageSlide } from '@/lib/slides';
 import { Testimonials } from '@/components/marketing/testimonials';
 import { Icons } from '@/components/icons';
-import React from 'react';
+import React, { Fragment } from 'react';
 import { Server } from 'lucide-react';
 
 export function HomePageClient() {
@@ -24,7 +24,7 @@ export function HomePageClient() {
         footer={
           <div className="grid w-full grid-cols-1 p-6 sm:grid-cols-2 xl:grid-cols-4">
             {Array.from({ length: 4 }).map((_, index) => (
-              <>
+              <Fragment key={index}>
                 <div className="flex flex-col py-4 sm:border-r sm:border-b sm:p-4 sm:pl-0 dark:border-gray-500/20">
                   <p className="mb-1 flex items-center gap-2 text-sm text-black dark:text-white">
                     <span className="shrink-0">
@@ -37,7 +37,7 @@ export function HomePageClient() {
                   </p>
                 </div>
                 <hr className="block w-full sm:hidden dark:border-gray-500/20" />
-              </>
+              </Fragment>
             ))}
           </div>
         }

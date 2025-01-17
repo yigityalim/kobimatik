@@ -11,6 +11,7 @@ import {
   Users,
 } from 'lucide-react';
 import { RecapGrid } from '@/components/recap-grid';
+import { BrandLogo } from '@/components/brand-logo';
 
 export type RecapOptions = {
   locale: string;
@@ -19,7 +20,7 @@ export type RecapOptions = {
     component: React.ComponentType;
     date: Date;
     title: string;
-    description: string;
+    description: React.ReactNode | string;
     footer: React.ComponentType;
   }[];
 };
@@ -63,7 +64,7 @@ const gridItems = [
   },
 ];
 
-export const recapOptions: RecapOptions = {
+export const recapOptions = {
   locale: 'tr',
   year: '2024',
   recaps: [
@@ -104,9 +105,13 @@ export const recapOptions: RecapOptions = {
     {
       component: () => <RecapGrid data={gridItems} />,
       date: new Date('2024-03-01'),
-      title: 'Fibizilite’nin Katkıları',
-      description: 'Fibizilite olarak açık kaynak topluluğuna olan katkılarımızı keşfedin.',
-      footer: () => <Button className="mt-auto">Takım ile Görüş</Button>,
+      title: 'Yaptıklarımız',
+      description: (
+        <p className="text-center tracking-tight">
+          ACME olarak geride bıraktığımız aylarda neler yaptık?
+        </p>
+      ),
+      footer: () => <Button className="mt-auto">Daha Fazla Göster</Button>,
     },
     {
       component: () => (
@@ -143,4 +148,4 @@ export const recapOptions: RecapOptions = {
       footer: () => <Button className="mt-auto">Ortaklıkları Keşfet</Button>,
     },
   ],
-};
+} satisfies RecapOptions;

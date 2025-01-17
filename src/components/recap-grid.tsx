@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { format } from 'date-fns';
 import { tr } from 'date-fns/locale';
 import type { LucideIcon } from 'lucide-react';
+import { GridBackground } from '@/components/grid-background';
 
 /*
   <span className="absolute inset-x-0 bottom-2 z-2 flex h-2 items-center justify-center bg-gradient-to-t from-white dark:from-transparent">
@@ -30,24 +31,7 @@ export function RecapGrid({ data }: Readonly<RecapGridItem>) {
           href={href}
           className="group group default-border-color relative flex flex-col items-center justify-center border-r border-b px-4 py-8 text-sm hover:bg-gradient-to-br hover:from-blue-50/40 hover:to-blue-50/80 focus-visible:[outline-offset:-4px]! dark:hover:from-blue-600/4 dark:hover:to-blue-700/8"
         >
-          <svg
-            aria-hidden="true"
-            className="pointer-events-none absolute inset-0 [z-index:-1] h-full w-full fill-blue-500/50 stroke-blue-500/50 !opacity-20 [mask-image:linear-gradient(to_top,_#ffffffad,_transparent)]"
-          >
-            <defs>
-              <pattern
-                id=":r2o:"
-                width="20"
-                height="20"
-                patternUnits="userSpaceOnUse"
-                x="-1"
-                y="-1"
-              >
-                <path d="M.5 20V.5H20" fill="none" strokeDasharray="0" />
-              </pattern>
-            </defs>
-            <rect width="100%" height="100%" strokeWidth="0" fill="url(#:r2o:)" />
-          </svg>
+          <GridBackground />
           <div className="flex h-full flex-col items-center text-center">
             <Icon className="text-accent-blue size-5 dark:text-blue-300" />
             <span className="group-hover:text-accent-blue mt-2 font-medium dark:group-hover:text-blue-300">

@@ -57,9 +57,8 @@ export function DynamicTable({ name, label, columns, addButtonLabel }: Readonly<
                   <Drawer.Title className="mb-4 text-lg font-medium">{column.label}</Drawer.Title>
                   <div className="space-y-2">
                     {(column.options as FieldOption[])?.map((option) => (
-                      <Drawer.Close asChild>
+                      <Drawer.Close key={option.value} asChild>
                         <Button
-                          key={option.value}
                           onClick={() => handleSelectOption(column.name, option.value)}
                           className="w-full justify-start"
                           variant={fieldValue === option.value ? 'secondary' : 'default'}

@@ -1,6 +1,7 @@
 import React, { Fragment, isValidElement } from 'react';
 import { HighlightedText } from '@/components/ui/highlighed-text';
 import { cn } from '@/lib/utils';
+import { GridBackground } from '@/components/grid-background';
 
 export interface BlockquoteProps {
   bgType?: 'grid' | 'solid';
@@ -18,7 +19,7 @@ export function Blockquote({
   className,
 }: Readonly<BlockquoteProps>) {
   return (
-    <div className={cn('size-full py-8', className)}>
+    <div className={cn('w-full py-8', className)}>
       <div
         className={cn(
           'border-offgray-100 relative mx-auto max-w-(--breakpoint-sm) rounded-sm border md:max-w-[1024px] dark:border-gray-600/40',
@@ -28,24 +29,7 @@ export function Blockquote({
         {bgType === 'solid' ? (
           <div className="pattern-diagonal-lines pattern-bg-white pattern-size-2 pattern-opacity-20 pointer-events-none absolute inset-0 [z-index:-1] [--pattern-color:_#93c5fd] select-none dark:[--pattern-bg-color:_transparent]! dark:[--pattern-color:_#51a2ff50]"></div>
         ) : (
-          <svg
-            aria-hidden="true"
-            className="pointer-events-none absolute inset-0 [z-index:-1] h-full w-full fill-blue-500/50 stroke-blue-500/50 opacity-20 dark:opacity-10"
-          >
-            <defs>
-              <pattern
-                id=":R27sd7qbt6ja:"
-                width="13"
-                height="13"
-                patternUnits="userSpaceOnUse"
-                x="-1"
-                y="-1"
-              >
-                <path d="M.5 13V.5H13" fill="none" strokeDasharray="0"></path>
-              </pattern>
-            </defs>
-            <rect width="100%" height="100%" strokeWidth="0" fill="url(#:R27sd7qbt6ja:)"></rect>
-          </svg>
+          <GridBackground />
         )}
         <div
           className={cn(

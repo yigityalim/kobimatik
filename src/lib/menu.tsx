@@ -1,12 +1,14 @@
 import {
+  ArrowRight,
+  Award,
   Blocks,
-  BookOpen,
   Calendar,
   ClipboardMinus,
   GitPullRequestCreate,
   Home,
   Languages,
   Laptop,
+  LayoutDashboard,
   Lightbulb,
   ListTodo,
   LucideProps,
@@ -14,16 +16,21 @@ import {
   Plus,
   Rocket,
   Scale,
+  Settings,
+  User,
   Users,
 } from 'lucide-react';
 import React from 'react';
 import { cn } from '@/lib/utils';
 import countries from './countries';
 import type { Locale } from '@/locales/client';
+import Image from 'next/image';
 
 export interface MenuItem {
   readonly name?: keyof Locale['menu'];
-  icon?: React.ComponentType<LucideProps> | ((props: LucideProps) => React.JSX.Element);
+  component?: React.ElementType<React.ComponentProps<'div'>, 'div'>;
+  type?: 'link' | 'button' | 'drawer' | 'authDrawer';
+  icon?: React.ElementType<LucideProps, 'svg'>;
   href?: string;
   primary?: boolean;
   title?: string;
@@ -34,11 +41,49 @@ export interface MenuItem {
   header?: string;
 }
 
-export const menu: MenuItem[] = [
+const ComponentWrapper = ({
+  icon: Icon,
+  image,
+  children,
+  suffix: Suffix,
+}: React.PropsWithChildren<{
+  icon?: React.ComponentType<LucideProps> | ((props: LucideProps) => React.JSX.Element);
+  image?: string;
+  suffix?: React.ComponentType<React.HTMLAttributes<HTMLElement>>;
+}>) => (
+  <div className="group dark:text-offgray-50 hover:bg-offgray-100/50 dark:hover:bg-offgray-500/10 my-4 flex h-8 w-full items-center justify-start gap-3 gap-x-2 rounded-sm border border-transparent text-sm tracking-tight text-nowrap text-black transition-colors duration-75 select-none disabled:cursor-not-allowed disabled:opacity-50">
+    {Icon && <Icon className="size-[14px] text-blue-400" />}
+    {image && (
+      <div className="h-[36px] w-[36px] shrink-0 rounded-sm bg-blue-50 p-0.5 outline-1 outline-blue-300 outline-dashed dark:bg-blue-100/20 dark:outline-blue-300/50">
+        <Image
+          width={32}
+          height={32}
+          src={image}
+          className="h-[32px] w-[32px] rounded-sm"
+          alt="image"
+        />
+      </div>
+    )}
+    {children}
+    {Suffix && <Suffix className="ml-auto" />}
+  </div>
+);
+
+export const menu = [
   {
     name: 'home',
     icon: ({ ...props }: LucideProps) => <Home className={cn(props.className)} {...props} />,
     href: '/',
+  },
+  {
+    component: (props) => (
+      <ComponentWrapper image="/mock-user.png" suffix={(props) => <span {...props}>Profil</span>}>
+        {props.children}
+      </ComponentWrapper>
+    ),
+    icon: Users,
+    drawer: true,
+    type: 'authDrawer',
   },
   {
     name: 'recap',
@@ -61,6 +106,11 @@ export const menu: MenuItem[] = [
         name: 'solutions',
         icon: Blocks,
         href: '/solutions',
+      },
+      {
+        name: 'try',
+        icon: Award,
+        href: '/try',
       },
       {
         name: 'pricing',
@@ -160,7 +210,7 @@ export const menu: MenuItem[] = [
     children: countries as unknown as MenuItem[], //FIXME: fix this
   },
   { seperator: true },
-];
+] satisfies MenuItem[];
 
 export const footerMenu = [
   {
@@ -185,6 +235,10 @@ export const footerMenu = [
       {
         name: 'blog',
         href: '/blog',
+      },
+      {
+        name: 'status.title' as keyof Locale['menu'],
+        href: 'https://status.acme.com',
       },
     ],
   },
@@ -234,16 +288,45 @@ export const footerMenu = [
     title: 'Sosyal',
     children: [
       {
-        name: 'Twitter',
+        name: 'Twitter' as keyof Locale['menu'],
         href: 'https://twitter.com/kobimatik',
       },
       {
-        name: 'LinkedIn',
+        name: 'LinkedIn' as keyof Locale['menu'],
         href: 'https://linkedin.com/company/kobimatik',
       },
     ],
   },
-];
+] satisfies MenuItem[];
+
+export const authMenu = [
+  {
+    name: 'dashboard',
+    icon: LayoutDashboard,
+    href: '/dashboard',
+    primary: true,
+  },
+  {
+    icon: ClipboardMinus,
+    name: 'reports',
+    href: '/reports',
+  },
+  {
+    icon: User,
+    name: 'profile',
+    href: '/profile',
+  },
+  {
+    icon: Settings,
+    name: 'settings',
+    href: '/settings',
+  },
+] satisfies {
+  name: keyof Locale['menu']['auth']['values'];
+  icon: React.ElementType<LucideProps, 'svg'>;
+  href: string;
+  primary?: boolean;
+}[];
 
 export function flattenMenu(menuItems: MenuItem[], parentPath: string = ''): MenuItem[] {
   return menuItems.reduce((acc: any, item) => {

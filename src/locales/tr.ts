@@ -3,8 +3,22 @@ export default {
   'hello.world': 'Merhaba Dünya!',
   welcome: 'Merhaba {name}!',
   menu: {
+    signIn: 'Giriş Yap',
+    signOut: 'Çıkış Yap',
+    signUp: 'Kayıt Ol',
+    forgotPassword: 'Şifremi Unuttum',
+    activeOrganization: 'Aktif Organizasyon',
+    auth: {
+      values: {
+        dashboard: 'Panel',
+        reports: 'Raporlar',
+        profile: 'Profil',
+        settings: 'Ayarlar',
+      },
+    },
+    profile: 'Profil',
     mainNav: 'Ana Menü',
-    recap: '{year} Özeti',
+    recap: '2024 Özeti',
     countrySelect: 'Ülke Seçimi',
     openSubMenu: 'Alt Menüyü Aç',
     closeSubMenu: 'Alt Menüyü Kapat',
@@ -13,6 +27,7 @@ export default {
     lightMode: 'Aydınlık Mod',
     home: 'Anasayfa',
     howItWorks: 'Nasıl Çalışır?',
+    try: 'Deneyin',
     solutions: 'Çözümler',
     pricing: 'Fiyatlandırma',
     blog: 'Blog',
@@ -44,6 +59,7 @@ export default {
       // add more states
     },
   },
+  loading: 'Yükleniyor',
   gallery: {
     andMore: 'Ve daha fazlası',
   },
@@ -56,6 +72,20 @@ export default {
   },
   banner: {
     link: '{year} Özetini Görüntüle!',
+  },
+  consentBanner: {
+    message:
+      'Bu site izleme teknolojileri kullanmaktadır. Bu teknolojilerin kullanımını kabul edebilir veya reddedebilirsin',
+    accept: 'Kabul et',
+    reject: 'Reddet',
+    more: 'Daha fazla bilgi',
+    less: 'Daha az bilgi',
+    // detaylı bilgi
+    details: {
+      title: 'Çerez Politikası',
+      description:
+        'Çerezler, web sitelerinin ziyaretçilerin cihazlarında depolanan küçük metin dosyalarıdır. Web siteleri, ziyaretçilerin cihazlarını tanıyarak kullanıcı deneyimini geliştirmek için çerezleri kullanır. Çerezler, web sitelerinin doğru şekilde çalışmasını sağlamak ve web sitesinin performansını analiz etmek için kullanılır.',
+    },
   },
   coming_soon: {
     title: 'Çok Yakında!',
@@ -92,6 +122,10 @@ export default {
       supportTeam: 'Destek Ekibi',
       signIn: 'Giriş Yap',
       home: 'Anasayfaya Dön',
+    },
+    profile: {
+      title: 'Profil',
+      description: 'Profilini düzenle, ayarlarını değiştir ve daha fazlasını yap.',
     },
     auth: {
       signIn: {

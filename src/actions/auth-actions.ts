@@ -36,7 +36,6 @@ export async function signInAction(formData: FormData) {
         },
         onSuccess: (ctx) => {
           console.log('LOGIN SUCCESS: ', ctx.data);
-          redirect('/dashboard');
         },
         onError: (ctx) => {
           console.error(JSON.stringify(ctx.error));

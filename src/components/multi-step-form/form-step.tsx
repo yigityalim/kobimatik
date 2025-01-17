@@ -11,7 +11,7 @@ export function FormStep({ title, children }: Readonly<FormStepProps>) {
   return (
     <div className="space-y-4">
       <h3 className="font-lora text-accent-blue border-b-accent-blue mb-2.5 mb-4 scroll-mt-24 border-b pb-1 text-start text-xl font-medium text-pretty dark:border-blue-300 dark:text-blue-300">
-        {t(title as keyof Locale['pages']['report']['create']['steps'])}
+        {t(title as any)} {/*as keyof Locale['pages']['report']['create']['steps']*/}
       </h3>
       {children}
     </div>

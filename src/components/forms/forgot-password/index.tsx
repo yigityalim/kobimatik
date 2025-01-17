@@ -20,7 +20,7 @@ export function ForgotPasswordForm() {
     statusText: string;
   } | null>(null);
 
-  const steps: Step[] = [
+  const steps = [
     {
       title: 'E-Posta',
       fields: [
@@ -77,7 +77,11 @@ export function ForgotPasswordForm() {
 
   return (
     <div className="space-y-2">
-      <MultiStepForm steps={steps} schemas={forgotPasswordSchemas} onSubmit={onSubmit as any} />
+      <MultiStepForm
+        steps={steps as any}
+        schemas={forgotPasswordSchemas}
+        onSubmit={onSubmit as any}
+      />
       {serverError && <p className="mt-1 text-sm text-red-500">{serverError.message}</p>}
       <div className="mt-4 flex w-full items-center justify-between">
         <Link href="/sign-in" className="text-sm underline">

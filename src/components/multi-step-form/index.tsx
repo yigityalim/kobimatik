@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useCallback, useMemo } from 'react';
 import { FormProvider, type Path, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { AnimatePresence, motion } from 'motion/react';
@@ -12,14 +12,31 @@ import { ProgressBar } from '@/components/multi-step-form/progress-bar';
 import { NavigationButtons } from '@/components/multi-step-form/navigation-buttons';
 import { PreviousDataDrawer } from '@/components/multi-step-form/previous-data-drawer';
 import { DynamicTable } from '@/components/multi-step-form/dynamic-table';
+import { useMultiStepForm } from '@/lib/hooks/use-form-step';
+import { LoginModal } from '@/components/login-modal';
+import { authClient } from '@/lib/auth/client';
 
 export function MultiStepForm<T extends z.ZodObject<any>>({
   steps,
   schemas,
   onSubmit,
+  checkSession,
 }: Readonly<MultiStepFormProps<T>>) {
-  const [currentStep, setCurrentStep] = useState(0);
-  const [collectedData, setCollectedData] = useState<FormData>({});
+  const {
+    currentStep,
+    setCurrentStep,
+    collectedData,
+    handleFormSubmit,
+    isLoggedIn,
+    showLoginModal,
+    setShowLoginModal,
+    handleLogin,
+    resetForm,
+  } = useMultiStepForm<T>({
+    steps,
+    onSubmit,
+    checkSession,
+  });
 
   const methods = useForm<z.infer<T>>({
     resolver: zodResolver(schemas[currentStep]),
@@ -32,19 +49,21 @@ export function MultiStepForm<T extends z.ZodObject<any>>({
     });
   }, [currentStep, collectedData, methods]);
 
-  const handleFormSubmit = async (data: Partial<z.infer<T>>) => {
-    const updatedData = { ...collectedData, ...data };
-    setCollectedData(updatedData);
-    console.log('MultiStepForm -> updatedData', updatedData);
-
-    if (currentStep < steps.length - 1) {
-      setCurrentStep(currentStep + 1);
-    } else {
-      await onSubmit(updatedData as z.infer<T>);
+  useEffect(() => {
+    if (!isLoggedIn) {
+      resetForm();
+      methods.reset();
     }
-  };
 
-  const renderField = (field: Field) => {
+    return () => {
+      if (!isLoggedIn) {
+        resetForm();
+        methods.reset();
+      }
+    };
+  }, [resetForm, methods, isLoggedIn]);
+
+  const renderField = useCallback((field: Field) => {
     switch (field.type) {
       case 'select':
         return <FormSelect key={field.name} {...field} />;
@@ -53,7 +72,33 @@ export function MultiStepForm<T extends z.ZodObject<any>>({
       default:
         return <FormField key={field.name} {...field} />;
     }
-  };
+  }, []);
+
+  const memoizedProgressBar = useMemo(
+    () => (
+      <ProgressBar
+        steps={steps}
+        currentStep={currentStep}
+        setCurrentStep={setCurrentStep}
+        progress={((currentStep + 1) / steps.length) * 100}
+      />
+    ),
+    [steps, currentStep, setCurrentStep],
+  );
+
+  const memoizedNavigationButtons = useMemo(
+    () => (
+      <NavigationButtons
+        currentStep={currentStep}
+        setCurrentStep={setCurrentStep}
+        stepsLength={steps.length}
+        checkSession={checkSession}
+        isLoggedIn={isLoggedIn}
+        setShowLoginModal={setShowLoginModal}
+      />
+    ),
+    [currentStep, setCurrentStep, steps.length, checkSession, isLoggedIn, setShowLoginModal],
+  );
 
   return (
     <FormProvider {...methods}>
@@ -61,12 +106,7 @@ export function MultiStepForm<T extends z.ZodObject<any>>({
         onSubmit={methods.handleSubmit((data) => handleFormSubmit({ ...collectedData, ...data }))}
         className="space-y-4"
       >
-        <ProgressBar
-          steps={steps}
-          currentStep={currentStep}
-          setCurrentStep={setCurrentStep}
-          progress={((currentStep + 1) / steps.length) * 100}
-        />
+        {memoizedProgressBar}
         <AnimatePresence mode="wait">
           <motion.div
             key={currentStep}
@@ -80,11 +120,7 @@ export function MultiStepForm<T extends z.ZodObject<any>>({
           </motion.div>
         </AnimatePresence>
 
-        <NavigationButtons
-          currentStep={currentStep}
-          setCurrentStep={setCurrentStep}
-          stepsLength={steps.length}
-        />
+        {memoizedNavigationButtons}
         {currentStep > 0 && (
           <PreviousDataDrawer
             steps={steps}
@@ -94,6 +130,11 @@ export function MultiStepForm<T extends z.ZodObject<any>>({
           />
         )}
       </form>
+      <LoginModal
+        isOpen={showLoginModal}
+        onClose={() => setShowLoginModal(false)}
+        onLogin={handleLogin}
+      />
     </FormProvider>
   );
 }

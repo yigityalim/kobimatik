@@ -7,6 +7,8 @@ import { Lora } from 'next/font/google';
 import localFont from 'next/font/local';
 import { cn } from '@/lib/utils';
 import { getStaticParams } from '@/locales/server';
+import { Noise } from '@/components/Noise';
+import { WebVitals } from '@/components/web-vitals';
 
 const writer = localFont({
   src: [
@@ -33,7 +35,7 @@ const lora = Lora({
 });
 
 export const metadata = {
-  title: 'Kobimatik',
+  title: 'ACME',
   description: 'Raporlarınızı hızlıca oluşturun.',
 } satisfies Metadata;
 
@@ -67,9 +69,7 @@ export default async function RootLayout({
       >
         <Providers locale={locale}>
           <div className="h-full w-full">{children}</div>
-          <Suspense fallback={null}>
-            <div className="pointer-events-none absolute inset-0 -z-1 min-h-dvh bg-[url('/noise.0e24d0e5.png')] bg-[size:180px] bg-repeat opacity-[0.035] dark:opacity-[0.020]" />
-          </Suspense>
+          <Noise />
         </Providers>
         <Authors key="authors" />
       </body>

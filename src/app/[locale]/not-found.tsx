@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { MarketingHeader } from '@/components/marketing/site-header';
+import { MarketingHeader } from '@/components/marketing/header';
 import Link from 'next/link';
 import { buttonVariants } from '@/components/ui/button';
 import { Icons } from '@/components/icons';

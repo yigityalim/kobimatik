@@ -106,7 +106,7 @@ export function SlideCard({ title, description, imageUrl }: Readonly<SlideConten
                     fillRule="evenodd"
                     d="M15 3a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2zM7 3a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2z"
                     clipRule="evenodd"
-                  ></path>
+                  />
                 </svg>
               </button>
             </div>

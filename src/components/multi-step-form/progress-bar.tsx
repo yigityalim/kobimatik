@@ -34,7 +34,7 @@ export function ProgressBar({
             whileHover={i + 1 === currentStep ? {} : { scale: 1.1 }}
             whileTap={i + 1 === currentStep ? {} : { scale: 0.9 }}
             onClick={() => {
-              setCurrentStep(i);
+              //setCurrentStep(i);
             }}
             className={cn(
               'flex size-6 cursor-pointer items-center justify-center rounded-md text-[10px] font-bold transition-colors duration-300 select-none md:size-7 md:text-sm',

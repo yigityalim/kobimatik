@@ -9,6 +9,7 @@ import { cn, sleep, smoothScroll } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { useIntersectionObserver } from '@/lib/hooks/use-intersection-observer';
 import { useCurrentLocale, useScopedI18n } from '@/locales/client';
+import { GridBackground } from '@/components/grid-background';
 
 export type Breadcrumb = {
   id: string;
@@ -30,13 +31,27 @@ type DotNotation<T, K extends string> = T extends object
   : never;
 
 export interface PageLayoutProps extends React.PropsWithChildren {
+  className?: string;
   breadcrumbs?: Breadcrumb[];
-  pageHeading: DotNotation<(typeof import('@/locales/tr').default)['pages'], 'title'>;
-  pageDescription: DotNotation<(typeof import('@/locales/tr').default)['pages'], 'description'>;
+  pageHeading: DotNotation<
+    Omit<
+      (typeof import('@/locales/tr').default)['pages'],
+      'forbidden' | 'notFound' | 'unauthorized'
+    >,
+    'title'
+  >;
+  pageDescription: DotNotation<
+    Omit<
+      (typeof import('@/locales/tr').default)['pages'],
+      'forbidden' | 'notFound' | 'unauthorized'
+    >,
+    'description'
+  >;
 }
 
 export function PageLayout({
   children,
+  className,
   breadcrumbs,
   pageHeading,
   pageDescription,
@@ -48,8 +63,6 @@ export function PageLayout({
   const activeId =
     useIntersectionObserver(breadcrumbs?.map((b) => b.id.toString()) ?? []) ??
     breadcrumbs?.at(0)?.id;
-  const flatMenu = React.useMemo(() => flattenMenu(menu, `/${locale}`), [menu, locale]);
-  const page = flatMenu.find((item) => item.href === pathname);
 
   const handleLinkClick = React.useCallback(
     (e: React.MouseEvent<HTMLButtonElement>, id: string) => {
@@ -58,10 +71,6 @@ export function PageLayout({
     },
     [],
   );
-
-  if (!page) {
-    notFound();
-  }
 
   return (
     <div className="grid w-full grid-cols-5">
@@ -76,32 +85,14 @@ export function PageLayout({
                 <div className="from-background to-background/20 pointer-events-none absolute inset-y-0 right-0 z-1 w-12 bg-gradient-to-l" />
                 */}
         {/* background pattern */}
-        <svg
-          className="pointer-events-none absolute inset-0 h-full w-full fill-blue-500/50 stroke-blue-500/50 opacity-20 dark:opacity-10"
-          aria-hidden="true"
-        >
-          <defs>
-            <pattern
-              id="pricing-pattern-page"
-              x="0"
-              y="0"
-              width="13"
-              height="13"
-              patternUnits="userSpaceOnUse"
-            >
-              <path d="M.5 13V.5H13" fill="none" strokeDasharray="0" />
-            </pattern>
-          </defs>
-          <rect width="100%" height="100%" strokeWidth="0" fill="url(#pricing-pattern-page)" />
-        </svg>
+        <GridBackground />
         <div className="mx-auto flex w-full max-w-(--breakpoint-sm) flex-col items-start justify-between gap-8 md:max-w-[1200px] md:flex-row md:items-center">
           <hgroup className="mx-auto flex w-full max-w-lg max-w-xl flex-col items-center gap-1">
             <h2 className="font-lora text-accent-blue mb-2.5 scroll-mt-24 text-center text-[clamp(2.5rem,1.2rem_+_1vw,1.7rem)] font-medium text-pretty dark:text-blue-300">
               {t(pageHeading)}
             </h2>
             <p className="text-offgray-50 dark:text-offgray-600 text-center tracking-tight">
-              {/*{t(pageDescription, { page })}*/}
-              {pageDescription}
+              {t(pageDescription)}
             </p>
           </hgroup>
         </div>
@@ -194,7 +185,12 @@ export function PageLayout({
           </nav>
         </div>
       )}
-      <div className="relative col-span-5 w-full gap-6 px-4 pb-10 pb-24 md:col-span-4 md:mx-auto md:max-w-[1248px] lg:pt-8 xl:gap-16 xl:px-6">
+      <div
+        className={cn(
+          'relative col-span-5 w-full gap-4 gap-6 px-4 pb-10 pb-24 md:col-span-4 md:mx-auto md:max-w-[1248px] lg:pt-8 xl:gap-16 xl:px-6',
+          className,
+        )}
+      >
         {children}
       </div>
     </div>

@@ -14,6 +14,7 @@ import { recapOptions } from '@/app/[locale]/(marketing)/recap/config';
 import { cn } from '@/lib/utils';
 import { format } from 'date-fns';
 import { tr } from 'date-fns/locale';
+import { isValidElement } from 'react';
 
 export function Client(/*{ year, locale }: Readonly<{ year: string; locale: string }>*/) {
   const [api, setApi] = React.useState<CarouselApi>();
@@ -53,34 +54,32 @@ export function Client(/*{ year, locale }: Readonly<{ year: string; locale: stri
         setApi={setApi}
       >
         <CarouselContent>
-          {recapOptions.recaps.map((recap) => (
-            <CarouselItem
-              key={recap.title}
-              className={cn(
-                'flex w-full flex-col items-center justify-between gap-8 px-6 py-10 transition duration-300 ease-in-out',
-                current !== recapOptions.recaps.indexOf(recap) + 1 && 'opacity-30',
-              )}
-            >
-              <recap.component />
-              <hgroup className="mx-auto flex w-full max-w-xl flex-col items-center gap-1">
-                <p className="mb-2 font-mono text-[.75rem] tracking-wider text-gray-500 uppercase">
-                  {format(recap.date, 'MMMM yyyy', { locale: tr })}
-                </p>
-                <h2 className="font-lora h2 text-accent-blue mb-2.5 scroll-mt-24 text-center font-medium text-pretty dark:text-blue-300">
-                  {recap.title}
-                </h2>
-                <p className="text-center tracking-tight">
-                  <span>
-                    <span>{recap.description}</span>
-                  </span>
-                </p>
-              </hgroup>
-              <recap.footer />
-            </CarouselItem>
-          ))}
+          {recapOptions.recaps.map((recap) => {
+            return (
+              <CarouselItem
+                key={recap.title}
+                className={cn(
+                  'flex w-full flex-col items-center justify-between gap-8 px-6 py-10 transition duration-300 ease-in-out',
+                  current !== recapOptions.recaps.indexOf(recap) + 1 && 'opacity-30',
+                )}
+              >
+                <recap.component />
+                <hgroup className="mx-auto flex w-full max-w-xl flex-col items-center gap-1">
+                  <p className="mb-2 font-mono text-[.75rem] tracking-wider text-gray-500 uppercase">
+                    {format(recap.date, 'MMMM yyyy', { locale: tr })}
+                  </p>
+                  <h2 className="font-lora h2 text-accent-blue mb-2.5 scroll-mt-24 text-center font-medium text-pretty dark:text-blue-300">
+                    {recap.title}
+                  </h2>
+                  {recap.description}
+                </hgroup>
+                <recap.footer />
+              </CarouselItem>
+            );
+          })}
         </CarouselContent>
         <div className="grid-border-color relative hidden h-16 items-center justify-between border-x border-t border-[color-mix(in_oklab,var(--color-blue-200)50%,transparent)] px-4 lg:flex dark:border-[color-mix(in_oklab,var(--color-blue-300)8%,transparent)]">
-          <div className="mb-4 flex w-full gap-x-2">
+          <div className="flex w-full gap-x-2">
             <CarouselPrevious
               className="group border-offgray-200 bg-cream-50 dark:hover:bg-accent-blue/30 flex size-8 shrink-0 cursor-pointer items-center justify-center rounded border hover:!border-blue-400 hover:bg-blue-100 dark:border-[color-mix(in_oklab,var(--color-offgray-600)20%,transparent)] dark:bg-[hsl(218,_13%,_5%)] dark:hover:!border-blue-400/50"
               size="icon"

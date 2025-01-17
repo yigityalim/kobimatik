@@ -3,6 +3,9 @@
 import { motion } from 'motion/react';
 import React, { useState } from 'react';
 import { cn } from '@/lib/utils';
+import { Noise } from '@/components/Noise';
+import Image from 'next/image';
+import { Card } from '@/components/ui/card';
 
 export interface VideoPlayerProps extends React.ComponentProps<'video'> {
   className?: string;
@@ -10,6 +13,38 @@ export interface VideoPlayerProps extends React.ComponentProps<'video'> {
 
 export function VideoPlayer({ src, className, ...props }: Readonly<VideoPlayerProps>) {
   const [playing, setPlaying] = useState<boolean>(true);
+
+  const renderPlayer = () => {
+    // .svg, .png var ise image, .mp4 var ise video
+    if (src?.includes('.svg') || src?.includes('.png')) {
+      return (
+        <Card>
+          <Image
+            width="1920"
+            height="1080"
+            className="h-full rounded-sm object-cover object-top"
+            src={src}
+            alt="Video"
+          />
+        </Card>
+      );
+    } else {
+      return (
+        <video
+          {...props}
+          className="h-full object-cover object-top"
+          loop
+          muted
+          playsInline
+          preload="auto"
+          controls={false}
+          autoPlay={playing}
+        >
+          <source src={src} type="video/mp4" />
+        </video>
+      );
+    }
+  };
 
   return (
     <motion.div
@@ -19,22 +54,11 @@ export function VideoPlayer({ src, className, ...props }: Readonly<VideoPlayerPr
       transition={{ duration: 0.3 }}
       onClick={() => setPlaying(false)}
       className={cn(
-        'group shadow-alt relative overflow-clip rounded-sm border border-gray-300 dark:border-gray-600/50',
+        'group shadow-alt relative overflow-clip rounded-sm border border-gray-300 md:rounded-none dark:border-gray-600/50',
         className,
       )}
     >
-      <video
-        {...props}
-        className="h-full object-cover object-top"
-        loop
-        muted
-        playsInline
-        preload="auto"
-        controls={false}
-        autoPlay={playing}
-      >
-        <source src={src} type="video/mp4" />
-      </video>
+      {renderPlayer()}
       <motion.button
         type="button"
         whileTap={{ scale: 0.95 }}
@@ -57,7 +81,7 @@ export function VideoPlayer({ src, className, ...props }: Readonly<VideoPlayerPr
             'touch-device:scale-100 touch-device:outline-[6px] touch-device:outline-blue-300/40',
           )}
         >
-          <div className="pointer-events-none absolute inset-0 [z-index:-1] [z-index:0] bg-[url(/noise.0e24d0e5.png)] bg-[size:180px] bg-repeat opacity-5! opacity-[0.035] dark:opacity-[0.015]" />
+          <Noise />
           <svg
             className="size-6 text-white"
             xmlns="http://www.w3.org/2000/svg"

@@ -1,25 +1,12 @@
 import { PageLayout } from '@/components/marketing/page-layout';
+import { getI18n } from '@/locales/server';
+import { Steps } from '@/components/steps';
 
-const tabs = [
-  {
-    title: 'Account',
-    content: 'Make changes to your account.',
-  },
-  {
-    title: 'Documents',
-    content: 'Access and update your documents.',
-  },
-  {
-    title: 'Settings',
-    content: 'Edit your profile or update contact information.',
-  },
-];
-
-export default function Page() {
+export default async function Page() {
+  //const t = await getI18n();
   return (
     <PageLayout pageHeading="howItWorks.title" pageDescription="howItWorks.description">
-      <h1 className="font-lora">Nasıl Çalışıyor?</h1>
-      <p>eklenecek.</p>
+      <Steps />
     </PageLayout>
   );
 }

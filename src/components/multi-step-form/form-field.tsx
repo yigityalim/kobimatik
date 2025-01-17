@@ -32,7 +32,7 @@ export const FormField: React.FC<FormFieldProps> = ({
         htmlFor={name}
         className="text-offgray-700 dark:text-offgray-300 font-lora block text-sm font-medium"
       >
-        {t(label as keyof Locale['pages']['report']['create']['fields'])}
+        {t(label as any)} {/*as keyof Locale['pages']['report']['create']['fields']*/}
       </label>
       <div className="relative">
         <span className="absolute inset-y-0 left-0 flex items-center pl-2">{icon}</span>
